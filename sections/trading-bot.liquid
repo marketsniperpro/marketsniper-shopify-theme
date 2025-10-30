@@ -1,0 +1,318 @@
+{% comment %}
+  sections/trading-bot.liquid
+  Trading bot showcase section with updated icons and card layout
+{% endcomment %}
+
+<section class="trading-bot" id="trading-bot">
+  <div class="container">
+    <div class="bot-header">
+      <h2>{{ section.settings.title }}</h2>
+      <p class="bot-subtitle">{{ section.settings.subtitle }}</p>
+    </div>
+
+    <div class="bot-features-grid">
+      {% for block in section.blocks %}
+        <div class="bot-feature-card" {{ block.shopify_attributes }}>
+          <div class="bot-feature-icon">
+            {% if block.settings.title contains "Automated Trading Alerts" %}
+              <!-- Robot Icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="6" y="8" width="12" height="10" rx="1"></rect>
+                <circle cx="9" cy="12" r="0.5" fill="currentColor"></circle>
+                <circle cx="15" cy="12" r="0.5" fill="currentColor"></circle>
+                <line x1="9" y1="15" x2="15" y2="15"></line>
+                <line x1="12" y1="4" x2="12" y2="8"></line>
+                <circle cx="12" cy="3" r="1"></circle>
+                <line x1="6" y1="11" x2="4" y2="11"></line>
+                <line x1="18" y1="11" x2="20" y2="11"></line>
+              </svg>
+            {% elsif block.settings.title contains "Sharp Shooter Candles" %}
+              <!-- Candlestick Chart Icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="8" x2="5" y2="5"></line>
+                <rect x="3" y="8" width="4" height="8"></rect>
+                <line x1="5" y1="16" x2="5" y2="20"></line>
+                <line x1="12" y1="4" x2="12" y2="8"></line>
+                <rect x="10" y="8" width="4" height="6"></rect>
+                <line x1="12" y1="14" x2="12" y2="20"></line>
+                <line x1="19" y1="6" x2="19" y2="11"></line>
+                <rect x="17" y="11" width="4" height="5"></rect>
+                <line x1="19" y1="16" x2="19" y2="20"></line>
+              </svg>
+            {% elsif block.settings.title contains "Sharp Shooter RSI" %}
+              <!-- Trending Chart Icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                <polyline points="17 6 23 6 23 12"></polyline>
+              </svg>
+            {% elsif block.settings.title contains "Proven Trading Strategies" %}
+              <!-- Target/Bullseye Icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="6"></circle>
+                <circle cx="12" cy="12" r="2"></circle>
+              </svg>
+            {% elsif block.settings.title contains "Private Bot Discussion Channel" %}
+              <!-- Message Bubble Icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                <line x1="9" y1="9" x2="15" y2="9"></line>
+                <line x1="9" y1="13" x2="15" y2="13"></line>
+              </svg>
+            {% elsif block.settings.title contains "Priority Support" %}
+              <!-- Headphones Icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+                <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+              </svg>
+            {% else %}
+              <!-- Default Checkmark Icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            {% endif %}
+          </div>
+          <div class="bot-feature-content">
+            <h3>{{ block.settings.title }}</h3>
+            <p>{{ block.settings.description }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if section.settings.show_stat %}
+      <div class="bot-stat">
+        <div class="stat-number">{{ section.settings.stat_number }}</div>
+        <div class="stat-label">{{ section.settings.stat_label }}</div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+
+
+<style>
+  .trading-bot { 
+    padding: 80px 20px;
+    background: rgba(10, 10, 10, 0.5);
+    border-top: 1px solid rgba(0, 255, 65, 0.2); 
+    border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+    min-height: 400px;
+  }
+
+  .bot-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 60px;
+  }
+
+  .bot-badge {
+    display: inline-block;
+    padding: 8px 24px;
+    background: rgba(0, 255, 65, 0.2);
+    color: #00ff41;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .bot-header h2 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 16px;
+    color: white;
+  }
+
+  .bot-subtitle {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .bot-features-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .bot-feature-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 30px;
+    background: rgba(0, 255, 65, 0.03);
+    border: 1px solid rgba(0, 255, 65, 0.2);
+    border-radius: 16px;
+    transition: all 0.3s ease;
+  }
+
+  .bot-feature-card:hover {
+    background: rgba(0, 255, 65, 0.06);
+    border-color: rgba(0, 255, 65, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .bot-feature-icon {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 50px;
+    max-height: 50px;
+    background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 255, 65, 0.05));
+    border: 2px solid rgba(0, 255, 65, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+
+  .bot-feature-card:hover .bot-feature-icon {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.4);
+    border-color: #00ff41;
+  }
+
+  .bot-feature-icon svg {
+    width: 24px;
+    height: 24px;
+    color: #00ff41;
+    stroke-width: 2;
+  }
+
+  .bot-feature-content {
+    flex: 1;
+  }
+
+  .bot-feature-content h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: white;
+  }
+
+  .bot-feature-content p {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .bot-stat {
+    text-align: center;
+    margin-top: 60px;
+    padding: 40px;
+    background: rgba(0, 255, 65, 0.1);
+    border-radius: 20px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .stat-number {
+    font-size: 4rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #00ff41, #00cc33);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .stat-label {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  @media (max-width: 968px) {
+    .trading-bot {
+      padding: 60px 15px;
+    }
+
+    .bot-features-grid {
+      gap: 15px;
+    }
+
+    .bot-feature-card {
+      padding: 20px;
+    }
+
+    .bot-feature-content h3 {
+      font-size: 1.1rem;
+    }
+
+    .bot-feature-content p {
+      font-size: 0.95rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Trading Bot",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "Now Available"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Professional Indicators & Trading Strategies"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Everything you need for successful trading in one complete package"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stat",
+      "label": "Show Stat",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "stat_number",
+      "label": "Stat Number",
+      "default": "2+"
+    },
+    {
+      "type": "text",
+      "id": "stat_label",
+      "label": "Stat Label",
+      "default": "Years of Optimization"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Bot Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Feature Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Feature Description",
+          "default": "Feature description goes here"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trading Bot"
+    }
+  ]
+}
+{% endschema %}

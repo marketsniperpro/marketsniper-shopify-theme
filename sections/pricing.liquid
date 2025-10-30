@@ -1,0 +1,196 @@
+{% comment %}
+  sections/pricing.liquid
+  Pricing section with styling matching products-overview.liquid
+{% endcomment %}
+
+<section class="pricing-section" id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <h2>{{ section.settings.section_title }}</h2>
+      <p>{{ section.settings.section_subtitle }}</p>
+    </div>
+
+    <div class="pricing-wrapper">
+      {% for block in section.blocks %}
+        {% if block.type == 'pricing_plan' %}
+          {% assign product = all_products[block.settings.product] %}
+          {% if product != blank %}
+            <div class="pricing-option {% if block.settings.is_popular %}featured{% endif %}" {{ block.shopify_attributes }}>
+              {% if block.settings.is_popular %}
+                <span class="popular-tag">Most Popular</span>
+              {% endif %}
+              
+              <div class="price-header">
+                <h4>{{ block.settings.plan_name | default: product.title }}</h4>
+                
+                <div class="price">
+                  <span class="amount">${{ product.price | divided_by: 100 }}</span>
+                  <span class="period">/{{ block.settings.period }}</span>
+                </div>
+                
+                {% if block.settings.savings_text != blank %}
+                  <span class="savings">{{ block.settings.savings_text }}</span>
+                {% endif %}
+              </div>
+
+              <ul class="plan-features">
+                {% assign features_list = product.description | split: '
+' %}
+                {% for feature in features_list %}
+                  {% assign stripped_feature = feature | strip %}
+                  {% if stripped_feature != blank and stripped_feature != '' %}
+                    <li>{{ stripped_feature }}</li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+
+              <a href="{{ product.url }}" class="btn btn-primary">
+                {{ block.settings.button_text | default: "Get Started" }}
+              </a>
+            </div>
+          {% endif %}
+        {% endif %}
+
+        {% if block.type == 'setup_fee_addon' %}
+          {% assign addon_product = all_products[block.settings.product] %}
+          {% if addon_product != blank %}
+            <div class="pricing-option addon" {{ block.shopify_attributes }}>
+              <span class="popular-tag">Optional<br>Add-On</span>
+              
+              <div class="price-header">
+                <h4>{{ block.settings.addon_name | default: addon_product.title }}</h4>
+                
+                <div class="price">
+                  <span class="amount">${{ addon_product.price | divided_by: 100 }}</span>
+                  <span class="period">one-time</span>
+                </div>
+              </div>
+
+              <ul class="plan-features">
+                {% assign addon_features_list = addon_product.description | split: '
+' %}
+                {% for feature in addon_features_list %}
+                  {% assign stripped_feature = feature | strip %}
+                  {% if stripped_feature != blank and stripped_feature != '' %}
+                    <li>{{ stripped_feature }}</li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+
+              <a href="{{ addon_product.url }}" class="btn btn-secondary">
+                {{ block.settings.addon_button_text | default: "Add Setup Service" }}
+              </a>
+            </div>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+
+{% schema %}
+{
+  "name": "Pricing Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Bot Suite"
+    },
+    {
+      "type": "text",
+      "id": "section_subtitle",
+      "label": "Section Subtitle",
+      "default": "Choose the plan that works for you"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pricing_plan",
+      "name": "Pricing Plan",
+      "settings": [
+        {
+          "type": "text",
+          "id": "product",
+          "label": "Product Handle",
+          "info": "Enter the product handle (e.g., 'bot-suite-monthly')"
+        },
+        {
+          "type": "text",
+          "id": "plan_name",
+          "label": "Plan Name (optional)",
+          "info": "Leave blank to use product title"
+        },
+        {
+          "type": "text",
+          "id": "period",
+          "label": "Period",
+          "default": "mo",
+          "info": "e.g., mo, yr"
+        },
+        {
+          "type": "text",
+          "id": "savings_text",
+          "label": "Savings Text (optional)",
+          "info": "e.g., Save $98/year"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_popular",
+          "label": "Mark as Most Popular",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Get Started"
+        }
+      ]
+    },
+    {
+      "type": "setup_fee_addon",
+      "name": "Setup Fee Add-on",
+      "settings": [
+        {
+          "type": "text",
+          "id": "product",
+          "label": "Product Handle",
+          "info": "Enter the product handle (e.g., 'bot-suite-setup')"
+        },
+        {
+          "type": "text",
+          "id": "addon_name",
+          "label": "Add-on Name (optional)",
+          "info": "Leave blank to use product title"
+        },
+        {
+          "type": "text",
+          "id": "addon_button_text",
+          "label": "Button Text",
+          "default": "Add Setup Service"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pricing",
+      "blocks": [
+        {
+          "type": "pricing_plan"
+        },
+        {
+          "type": "pricing_plan"
+        },
+        {
+          "type": "setup_fee_addon"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

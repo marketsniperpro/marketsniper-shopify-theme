@@ -1,0 +1,27 @@
+{
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo_text": "Market Sniper"
+      }
+    },
+    "cart-items": {
+      "type": "main-cart",
+      "settings": {
+        "cart_title": "Your Cart",
+        "empty_cart_message": "Your cart is currently empty.",
+        "continue_shopping_text": "Continue Shopping"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "header",
+    "cart-items",
+    "footer"
+  ]
+}

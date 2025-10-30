@@ -1,0 +1,422 @@
+{% comment %}
+  sections/indicators.liquid
+  Indicators showcase section with images - UPDATED with slide animations
+{% endcomment %}
+
+<section class="indicators" id="indicators">
+  <div class="container">
+    <div class="section-header animate-slide-left">
+      <h2>{{ section.settings.section_title }}</h2>
+      <p>{{ section.settings.section_subtitle }}</p>
+    </div>
+
+    <div class="indicators-grid">
+      {% for block in section.blocks %}
+        <div class="indicator-item {% cycle 'normal', 'reverse' %}" {{ block.shopify_attributes }}>
+          <div class="indicator-content animate-slide-{% cycle 'left', 'right' %}">
+            <span class="indicator-badge">{{ block.settings.version }}</span>
+            <h3>{{ block.settings.title }}</h3>
+            <p class="indicator-description">{{ block.settings.description }}</p>
+            
+            {% if block.settings.features != blank %}
+              <ul class="indicator-features">
+                {% assign features_list = block.settings.features | split: '
+' %}
+                {% for feature in features_list %}
+                  {% if feature != blank %}
+                    <li>{{ feature | strip }}</li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+
+          <div class="indicator-visual animate-slide-{% cycle 'right', 'left' %}">
+            <div class="indicator-visual-container">
+              {% if block.settings.image %}
+                {{ block.settings.image | image_url: width: 800 | image_tag }}
+              {% elsif block.settings.fallback_image != blank %}
+                <img 
+                  src="{{ block.settings.fallback_image | asset_url }}" 
+                  alt="{{ block.settings.title }}"
+                >
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .indicators {
+    padding: 80px 20px;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-header h2 {
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 15px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00ff41, #00cc33);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .section-header p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .indicators-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+  }
+
+  .indicator-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    opacity: 0;
+    animation: slideInFromLeft 0.8s ease-out forwards;
+  }
+
+  .indicator-item.reverse {
+    direction: rtl;
+    animation: slideInFromRight 0.8s ease-out forwards;
+  }
+
+  .indicator-item.reverse > * {
+    direction: ltr;
+  }
+
+  /* Stagger the animations */
+  .indicator-item:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+
+  .indicator-item:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .indicator-item:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  .indicator-item:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+
+  .indicator-item:nth-child(5) {
+    animation-delay: 0.5s;
+  }
+
+  @keyframes slideInFromLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInFromRight {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .indicator-content {
+    padding: 40px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .indicator-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background: rgba(0, 255, 65, 0.1);
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    border-radius: 50px;
+    color: #00ff41;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    width: auto;
+    max-width: fit-content;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .indicator-content h3 {
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+
+  .indicator-description {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.8;
+    margin-bottom: 25px;
+  }
+
+  .indicator-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .indicator-features li {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    padding: 8px 0;
+    line-height: 1.6;
+    display: block;
+  }
+
+  .indicator-visual-container {
+    background: linear-gradient(180deg, #1a2332 0%, #0f1419 100%);
+    border: 1px solid rgba(0, 255, 65, 0.2);
+    border-radius: 16px;
+    padding: 0;
+    width: 100%;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 255, 65, 0.1);
+  }
+
+  .indicator-visual-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left center;
+    display: block;
+    border-radius: 16px;
+  }
+
+  @media (max-width: 1024px) {
+    .indicator-item {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .indicator-item.reverse {
+      direction: ltr;
+    }
+
+    .indicator-content {
+      text-align: center;
+    }
+
+    .indicator-content h3 {
+      font-size: 2rem;
+    }
+
+    .indicator-visual-container {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .indicator-visual-container img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .indicators {
+      padding: 60px 15px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      padding: 0 15px;
+      max-width: 100%;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+    }
+
+    .indicator-content h3 {
+      font-size: 1.8rem;
+    }
+
+    .indicator-content {
+      padding: 20px 0;
+      text-align: left;
+    }
+
+    .indicator-features li {
+      font-size: 0.95rem;
+      padding: 6px 0;
+    }
+
+    .indicators-grid {
+      gap: 50px;
+      padding: 0;
+    }
+
+    .indicator-item {
+      padding: 0;
+      margin: 0;
+    }
+
+    .indicator-visual-container {
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      height: 300px;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    
+    .indicator-visual-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      max-width: 100%;
+      display: block;
+      border-radius: 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .indicators {
+      padding: 50px 10px;
+    }
+
+    .container {
+      padding: 0 10px;
+    }
+
+    .section-header {
+      margin-bottom: 40px;
+    }
+
+    .section-header h2 {
+      font-size: 1.75rem;
+    }
+
+    .indicator-content h3 {
+      font-size: 1.5rem;
+    }
+
+    .indicator-content {
+      text-align: left;
+    }
+
+    .indicator-badge {
+      font-size: 0.8rem;
+      padding: 5px 12px;
+    }
+
+    .indicator-description {
+      font-size: 1rem;
+    }
+
+    .indicator-visual-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Indicators",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Professional Trading Indicators"
+    },
+    {
+      "type": "text",
+      "id": "section_subtitle",
+      "label": "Section Subtitle",
+      "default": "Advanced tools to identify high-probability trading opportunities"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "indicator",
+      "name": "Indicator",
+      "settings": [
+        {
+          "type": "text",
+          "id": "version",
+          "label": "Version Badge",
+          "default": "Version 3.1"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Indicator Name",
+          "default": "Sharp Shooter Candles"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "textarea",
+          "id": "features",
+          "label": "Features (one per line)",
+          "default": "✓ Buy/Sell Signals\n✓ Reversal Candles\n✓ MACD Integration"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Indicator Screenshot"
+        },
+        {
+          "type": "text",
+          "id": "fallback_image",
+          "label": "Fallback Image Filename (from assets folder)",
+          "default": "sharp-shooter-candles.jpg",
+          "info": "Used if no image is uploaded above"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Indicators"
+    }
+  ]
+}
+{% endschema %}

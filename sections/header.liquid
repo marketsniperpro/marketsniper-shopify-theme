@@ -1,0 +1,136 @@
+{% comment %}
+  sections/header.liquid
+  Updated site header with CTA button
+{% endcomment %}
+
+<nav class="navbar">
+  <div class="container">
+    <a href="/" class="logo">
+      <span class="logo-icon">
+        <img src="{{ 'logo.jpg' | asset_url }}" alt="{{ shop.name }}">
+      </span>
+      <span class="logo-text">{{ section.settings.logo_text | default: shop.name }}</span>
+    </a>
+    
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/pages/features">Features</a></li>
+      <li><a href="/pages/products">Products</a></li>
+      <li><a href="/pages/contact">Contact</a></li>
+      
+      <!-- Cart Icon -->
+      <li>
+        <a href="/cart" class="cart-icon" title="View Cart">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          {% if cart.item_count > 0 %}
+            <span class="cart-count">{{ cart.item_count }}</span>
+          {% endif %}
+        </a>
+      </li>
+      
+      <!-- Login/Account Icon -->
+      {% if customer %}
+        <li>
+          <a href="/account" class="account-icon" title="My Account">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span class="account-name">{{ customer.first_name | default: "Account" }}</span>
+          </a>
+        </li>
+      {% else %}
+        <li>
+          <a href="/account/login" class="login-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            Login
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+    
+    <button class="mobile-menu-btn" aria-label="Toggle mobile menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay"></div>
+
+<div class="mobile-menu">
+  <ul class="mobile-nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/pages/features">Features</a></li>
+    <li><a href="/pages/products">Products</a></li>
+    <li><a href="/pages/contact">Contact</a></li>
+    
+    <!-- Cart in Mobile Menu -->
+    <li>
+      <a href="/cart" class="mobile-cart">
+        <span class="mobile-cart-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          {% if cart.item_count > 0 %}
+            <span class="mobile-cart-badge">{{ cart.item_count }}</span>
+          {% endif %}
+        </span>
+        Cart
+      </a>
+    </li>
+    
+    {% if customer %}
+      <li>
+        <a href="/account" class="mobile-account">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          {{ customer.first_name | default: "My Account" }}
+        </a>
+      </li>
+      <li>
+        <a href="/account/logout" class="mobile-logout">Logout</a>
+      </li>
+    {% else %}
+      <li>
+        <a href="/account/login" class="mobile-login">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          Login
+        </a>
+      </li>
+    {% endif %}
+  </ul>
+</div>
+
+<link rel="stylesheet" href="{{ 'header.css' | asset_url }}">
+<script src="{{ 'header.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo Text",
+      "default": "Market Sniper"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,88 @@
+<div class="account-page">
+  <div class="container">
+    
+    <div class="account-header">
+      <h1>Welcome, {{ customer.first_name }}!</h1>
+      <a href="/account/logout" class="btn btn-secondary">Logout</a>
+    </div>
+    
+    <div class="account-grid">
+      
+      <!-- Account Info -->
+      <div class="account-card">
+        <h2>Account Information</h2>
+        <div class="account-info">
+          <p><strong>Name:</strong> {{ customer.first_name }} {{ customer.last_name }}</p>
+          <p><strong>Email:</strong> {{ customer.email }}</p>
+          <a href="/account/addresses" class="link">Manage Addresses →</a>
+        </div>
+      </div>
+      
+      <!-- Active Subscriptions -->
+      <div class="account-card">
+        <h2>Active Subscriptions</h2>
+        <div class="subscription-list">
+          {% if customer.orders.size > 0 %}
+            {% for order in customer.orders %}
+              {% for line_item in order.line_items %}
+                {% if line_item.product_id == 7995703263412 or line_item.product_id == 7995706015924 %}
+                  <div class="subscription-item">
+                    <div>
+                      <h3>{{ line_item.title }}</h3>
+                      <p class="subscription-price">${{ line_item.price | money_without_currency }}/{{ line_item.product_id == 7995703263412 ? 'mo' : 'yr' }}</p>
+                    </div>
+                    <span class="status-badge active">Active</span>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+          {% else %}
+            <p class="empty-state">No active subscriptions</p>
+            <a href="/#pricing" class="btn btn-primary">View Plans</a>
+          {% endif %}
+        </div>
+        
+        <div class="manage-subscription">
+          <a href="mailto:jesse@marketsniper.pro?subject=Manage Subscription" class="btn btn-outline">
+            Manage Subscription
+          </a>
+          <p class="help-text">Contact support to modify or cancel your subscription</p>
+        </div>
+      </div>
+      
+      <!-- Recent Orders -->
+      <div class="account-card full-width">
+        <h2>Recent Orders</h2>
+        {% if customer.orders.size > 0 %}
+          <div class="orders-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Order</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Total</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for order in customer.orders limit: 5 %}
+                  <tr>
+                    <td>#{{ order.order_number }}</td>
+                    <td>{{ order.created_at | date: "%B %d, %Y" }}</td>
+                    <td><span class="status-badge {{ order.financial_status }}">{{ order.financial_status }}</span></td>
+                    <td>{{ order.total_price | money }}</td>
+                    <td><a href="/account/orders/{{ order.id }}">View →</a></td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <p class="empty-state">No orders yet</p>
+        {% endif %}
+      </div>
+      
+    </div>
+  </div>
+</div>

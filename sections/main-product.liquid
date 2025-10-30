@@ -1,0 +1,140 @@
+{% comment %}
+  sections/main-product.liquid
+  Product page with vertical layout - Updated features to match pricing
+{% endcomment %}
+
+{% assign is_setup_product = false %}
+{% if product.handle == 'bot-suite-setup' or product.handle == 'trading-bot-suite-setup' or product.handle contains 'setup-fee' or product.handle == 'professional-setup' %}
+  {% assign is_setup_product = true %}
+{% endif %}
+
+<section class="product-page {% if is_setup_product %}setup-product-page{% endif %}" data-product-handle="{{ product.handle }}">
+  <div class="container">
+    <div class="product-grid">
+      <!-- Product Info -->
+      <div class="product-info">
+        {% if is_setup_product %}
+          <span class="optional-badge animate-slide-left">Optional Add-On</span>
+        {% endif %}
+        
+        <h1 class="product-title animate-product-title">{{ product.title }}</h1>
+        
+        <div class="product-price animate-slide-left">
+          <span class="price">{{ product.selected_or_first_available_variant.price | money }}</span>
+          {% if is_setup_product %}
+            <span class="period">one-time</span>
+          {% else %}
+            <span class="period">/mo</span>
+          {% endif %}
+          {% if product.compare_at_price > product.price %}
+            <span class="compare-price">{{ product.compare_at_price | money }}</span>
+          {% endif %}
+        </div>
+
+        <!-- Automation Requirements Notice (for ALL products) -->
+        <div class="automation-notice animate-slide-left">
+          <p><strong>Note:</strong> Full automation requires a third-party subscription and may require a higher-tier TradingView plan</p>
+        </div>
+
+        <!-- Setup Fee Info (for bot products only, NOT for setup product itself) -->
+        {% if product.handle == 'trading-bot-suite-49' or product.handle == 'trading-bot-suite-490-annual' %}
+          <div class="setup-fee-info animate-slide-left">
+            <p><strong>Optional:</strong> Setup Service available separately for <strong>$249</strong> one-time</p>
+            <a href="/#pricing" class="view-setup-link">View Setup Service →</a>
+          </div>
+        {% endif %}
+
+        {% if product.description != blank %}
+          <div class="product-description animate-slide-left">
+            <h3>What's Included:</h3>
+            {{ product.description }}
+          </div>
+        {% else %}
+          <div class="product-description animate-slide-left">
+            <h3>What's Included:</h3>
+            <ul class="feature-list">
+              {% if is_setup_product %}
+                <li>✓ 1-Hour Setup Call - personal video walkthrough with our team</li>
+                <li>✓ Bot Installation Walkthrough - We guide you through every step</li>
+                <li>✓ TradingView Configuration - Step-by-step help connecting strategies</li>
+                <li>✓ Strategy Configuration - Personalized settings for your account</li>
+                <li>✓ Alert Setup & Testing - Verify everything works before we hang up</li>
+              {% else %}
+                <li>✓ Two Battle-Tested Strategies - Sharp Shooter Candles 4.2 & Sharp Shooter RSI 3.2</li>
+                <li>✓ 100% Full Automation Capability - Executes trades on your behalf</li>
+                <li>✓ New Strategies Monthly - All future releases included at no extra cost</li>
+                <li>✓ Private Discord Community - 200+ active traders sharing setups and results</li>
+                <li>✓ Priority Support - Email or direct message us in the discord</li>
+                <li>✓ Cancel Anytime - No contracts, no questions asked</li>
+              {% endif %}
+            </ul>
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Form Section -->
+      <div class="product-form-section">
+        <!-- Plan Selector for Bot Suite Products (not for setup fee) -->
+        {% if product.handle == 'trading-bot-suite-49' or product.handle == 'trading-bot-suite-490-annual' %}
+          <div class="plan-selector animate-slide-right">
+            <label>Choose Your Plan:</label>
+            <div class="plan-options">
+              <div class="plan-option monthly-option animate-plan-option">
+                <input type="radio" name="plan_choice" id="monthly-plan" value="monthly" 
+                  {% if product.handle == 'trading-bot-suite-49' %}checked{% endif %}>
+                <label for="monthly-plan">
+                  <strong>Monthly</strong>
+                  <span class="plan-price">$49/mo</span>
+                </label>
+              </div>
+              <div class="plan-option annual-option animate-plan-option">
+                <input type="radio" name="plan_choice" id="annual-plan" value="annual"
+                  {% if product.handle == 'trading-bot-suite-490-annual' %}checked{% endif %}>
+                <label for="annual-plan">
+                  <strong>Annual</strong>
+                  <span class="plan-price">$490/yr</span>
+                  <span class="plan-savings">Save $98</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- Product Form -->
+        {% form 'product', product, id: 'product-form' %}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" id="variant-id">
+          
+          <!-- Hidden selling plan (auto-select first one if exists) -->
+          {% if product.selling_plan_groups.size > 0 %}
+            {% for selling_plan_group in product.selling_plan_groups %}
+              {% for selling_plan in selling_plan_group.selling_plans %}
+                {% if forloop.first %}
+                  <input type="hidden" name="selling_plan" value="{{ selling_plan.id }}">
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+          {% endif %}
+          
+          <!-- Hidden quantity, always 1 -->
+          <input type="hidden" name="quantity" value="1">
+
+          <!-- Add to Cart Button -->
+          <button type="submit" name="add" class="add-to-cart-btn animate-slide-right" id="add-to-cart">
+            <span class="btn-text">{% if is_setup_product %}Add Setup{% else %}Add to Cart{% endif %}</span>
+          </button>
+
+          <div id="cart-message" class="cart-message animate-slide-right" style="display: none;"></div>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="{{ 'product.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Product Information",
+  "settings": []
+}
+{% endschema %}

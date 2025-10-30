@@ -1,0 +1,26 @@
+{% comment %}
+  sections/products-overview.liquid
+  Products hero section - just the hero, pricing handled by pricing section
+{% endcomment %}
+
+<!-- Compact Hero Section -->
+<section class="products-hero-compact">
+  <div class="container">
+    <h1 class="products-hero-title animate-slide-left">{{ section.settings.hero_title | default: "Choose Your Trading Path" }}</h1>
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "Products Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero Title",
+      "default": "Choose Your Trading Path"
+    }
+  ]
+}
+{% endschema %}

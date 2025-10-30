@@ -1,0 +1,54 @@
+<section class="testimonials-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>What Do Our Subscribers Think?</h2>
+    </div>
+
+    <div class="testimonials-slider">
+      <button class="slider-arrow prev" aria-label="Previous testimonial">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
+      <div class="testimonials-track">
+        <div class="testimonial active">
+          <p class="testimonial-text">Before I met Jesse, I was copy trading. Now I can fully execute trades on my own and he really changed my view on trading completely.</p>
+          <p class="testimonial-author">— @JulianDeFi</p>
+        </div>
+
+        <div class="testimonial">
+          <p class="testimonial-text">I just wanted to say thank you for all your help with trading. I've already made 20% on my portfolio and I couldn't have done it without you. 🙌</p>
+          <p class="testimonial-author">— @onedegreebetter</p>
+        </div>
+
+        <div class="testimonial">
+          <p class="testimonial-text">There is so much noise in the crypto space - filtering through it is one of the most important factors to success. Jesse's approach to the market is consistent, precise and unbiased.</p>
+          <p class="testimonial-author">— @CharlesChopin</p>
+        </div>
+
+        <div class="testimonial">
+          <p class="testimonial-text">If you're looking to truly learn the art of trading, I would recommend you look into Market Sniper.</p>
+          <p class="testimonial-author">— @granmatterson</p>
+        </div>
+      </div>
+
+      <button class="slider-arrow next" aria-label="Next testimonial">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+
+    <div class="slider-dots"></div>
+  </div>
+</section>
+
+<script src="{{ 'testimonials.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": []
+}
+{% endschema %}
