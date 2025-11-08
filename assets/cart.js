@@ -53,7 +53,7 @@ function validateAndCheckout() {
   
   // Validate TradingView username
   if (!tvUsername || tvUsername.length < 3) {
-    showToast('❌ Please enter your TradingView username', 'error');
+    showToast('Please enter your TradingView username', 'error');
     document.getElementById('tradingview-username')?.focus();
     return;
   }
@@ -72,13 +72,13 @@ function validateAndCheckout() {
   })
   .then(response => response.json())
   .then(data => {
-    showToast('✅ Information saved! Proceeding to checkout...');
+    showToast('Information saved! Proceeding to checkout...');
     setTimeout(() => {
       window.location.href = '/checkout';
     }, 800);
   })
   .catch(error => {
     console.error('Error:', error);
-    showToast('❌ Error saving information. Please try again.', 'error');
+    showToast('Error saving information. Please try again.', 'error');
   });
 }

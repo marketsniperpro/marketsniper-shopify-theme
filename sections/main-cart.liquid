@@ -347,13 +347,64 @@
 </style>
 
 <script>
+  // Prevent any form submission or checkout without validation
+  document.addEventListener('DOMContentLoaded', function() {
+    const checkoutButton = document.getElementById('checkout-button');
+    const tvUsernameInput = document.getElementById('tradingview-username');
+    const checkbox1 = document.getElementById('acknowledge-1');
+    const checkbox2 = document.getElementById('acknowledge-2');
+
+    // Override any existing checkout handlers
+    if (checkoutButton) {
+      checkoutButton.onclick = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        return validateAndCheckout();
+      };
+    }
+
+    // Prevent form submission
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+      form.addEventListener('submit', function(e) {
+        if (!validateBeforeSubmit()) {
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
+        }
+      });
+    });
+  });
+
+  function validateBeforeSubmit() {
+    const checkbox1 = document.getElementById('acknowledge-1');
+    const checkbox2 = document.getElementById('acknowledge-2');
+    const tvUsername = document.getElementById('tradingview-username');
+
+    if (!checkbox1 || !checkbox2 || !tvUsername) {
+      return false;
+    }
+
+    if (!checkbox1.checked || !checkbox2.checked) {
+      showToast('Please check all acknowledgment boxes before proceeding');
+      return false;
+    }
+
+    if (!tvUsername.value.trim()) {
+      showToast('Please enter your TradingView username');
+      return false;
+    }
+
+    return true;
+  }
+
   function validateAndCheckout() {
     const checkbox1 = document.getElementById('acknowledge-1');
     const checkbox2 = document.getElementById('acknowledge-2');
     
     // Check if both checkboxes are checked
     if (!checkbox1.checked || !checkbox2.checked) {
-      showToast('Please check all acknowledgment boxes before proceeding', 'error');
+      showToast('Please check all acknowledgment boxes before proceeding');
       
       // Highlight unchecked boxes
       if (!checkbox1.checked) {
@@ -375,22 +426,27 @@
     // Validate TradingView username
     const tvUsername = document.getElementById('tradingview-username').value.trim();
     if (!tvUsername) {
-      showToast('Please enter your TradingView username', 'error');
+      showToast('Please enter your TradingView username');
       document.getElementById('tradingview-username').focus();
       return false;
     }
     
     // All validation passed - proceed to checkout
     window.location.href = '/checkout';
+    return false;
   }
 
-  function showToast(message, type = 'info') {
+  function showToast(message) {
     const toast = document.getElementById('cart-toast');
-    toast.textContent = message;
-    toast.className = 'cart-toast show ' + type;
-    setTimeout(() => {
-      toast.classList.remove('show');
-    }, 3000);
+    if (toast) {
+      toast.textContent = message;
+      toast.className = 'cart-toast show error';
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    } else {
+      alert(message);
+    }
   }
 </script>
 
