@@ -115,17 +115,12 @@
             <div class="required-acknowledgments">
               <label class="acknowledgment-item">
                 <input type="checkbox" id="acknowledge-1" class="acknowledgment-checkbox">
-                <span>Full automation may require TradingView Premium, third-party automation services, and real-time data subscriptions (additional costs apply).</span>
+                <span>I understand that full automation may require TradingView Premium, third-party automation services, and real-time data subscriptions (additional costs apply), and that past performance does not indicate future returns with substantial risk of loss.</span>
               </label>
 
               <label class="acknowledgment-item">
                 <input type="checkbox" id="acknowledge-2" class="acknowledgment-checkbox">
-                <span>Past performance does not indicate future returns. Trading involves substantial risk of loss.</span>
-              </label>
-
-              <label class="acknowledgment-item">
-                <input type="checkbox" id="acknowledge-3" class="acknowledgment-checkbox">
-                <span>I will check my order confirmation email for Discord invites and setup instructions, regardless of whether I'm currently in the Discord server.</span>
+                <span>I understand that I will check my order confirmation email for Discord invites and setup instructions, regardless of whether I'm currently in the Discord server.</span>
               </label>
             </div>
 
@@ -173,21 +168,21 @@
 
   /* Consistent 1px borders for all boxes */
   .cart-item {
-    border: 1px solid rgba(0, 255, 136, 0.3) !important;
+    border: 1px solid rgba(0, 255, 65, 0.3) !important;
   }
 
   .tradingview-field-container {
     background: rgba(0, 20, 10, 0.3) !important;
-    border: 1px solid rgba(0, 255, 136, 0.3) !important;
+    border: 1px solid rgba(0, 255, 65, 0.3) !important;
   }
 
   .cart-summary {
-    border: 1px solid rgba(0, 255, 136, 0.3) !important;
+    border: 1px solid rgba(0, 255, 65, 0.3) !important;
     background: rgba(0, 20, 10, 0.2);
   }
 
   .cart-summary h2 {
-    color: #00ff88;
+    color: #00FF41;
     font-size: 22px;
     margin-bottom: 20px;
   }
@@ -212,7 +207,7 @@
   }
 
   .summary-line.total .total-price {
-    color: #00ff88;
+    color: #00FF41;
   }
 
   .tax-note {
@@ -223,7 +218,7 @@
 
   .required-acknowledgments {
     background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(0, 255, 136, 0.2) !important;
+    border: 1px solid rgba(0, 255, 65, 0.2) !important;
     border-radius: 8px;
     padding: 16px;
     margin: 20px 0;
@@ -250,7 +245,7 @@
     margin-top: 2px;
     cursor: pointer;
     flex-shrink: 0;
-    accent-color: #00ff88;
+    accent-color: #00FF41;
   }
 
   .acknowledgment-item:hover {
@@ -259,7 +254,7 @@
 
   .checkout-btn {
     width: 100%;
-    background: linear-gradient(135deg, #00ff88 0%, #00cc66 100%);
+    background: linear-gradient(135deg, #00FF41 0%, #00cc33 100%);
     color: #000;
     font-weight: 700;
     font-size: 15px;
@@ -269,12 +264,11 @@
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
   }
 
   .checkout-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 255, 136, 0.4);
+    box-shadow: 0 4px 12px rgba(0, 255, 65, 0.3);
   }
 
   .checkout-btn:active {
@@ -284,7 +278,7 @@
   .continue-shopping {
     display: block;
     text-align: center;
-    color: #00ff88;
+    color: #00FF41;
     font-size: 14px;
     margin-top: 16px;
     text-decoration: none;
@@ -292,7 +286,7 @@
   }
 
   .continue-shopping:hover {
-    color: #00cc66;
+    color: #00cc33;
   }
 
   /* Mobile responsive */
@@ -342,9 +336,8 @@
   function validateAndCheckout() {
     const checkbox1 = document.getElementById('acknowledge-1');
     const checkbox2 = document.getElementById('acknowledge-2');
-    const checkbox3 = document.getElementById('acknowledge-3');
     
-    if (!checkbox1.checked || !checkbox2.checked || !checkbox3.checked) {
+    if (!checkbox1.checked || !checkbox2.checked) {
       showToast('Please acknowledge all required items before checkout', 'error');
       return false;
     }
