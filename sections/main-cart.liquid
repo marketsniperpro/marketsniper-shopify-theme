@@ -9,130 +9,135 @@
 
     {% if cart.item_count > 0 %}
       <div class="cart-content">
-        <!-- Cart Items -->
-        <div class="cart-items">
-          {% for item in cart.items %}
-            {% assign is_setup = false %}
-            {% if item.product.title contains 'Setup' or item.product.title contains 'Professional' %}
-              {% assign is_setup = true %}
-            {% endif %}
-            
-            <div class="cart-item {% if is_setup %}setup-item{% endif %}" data-line="{{ forloop.index }}">
-              <div class="item-image">
-                {% if item.image %}
-                  <img src="{{ item.image | img_url: 'medium' }}" alt="{{ item.title | escape }}">
-                {% elsif is_setup %}
-                  <img src="{{ 'bot-suite-setup.jpg' | asset_url }}" alt="{{ item.title | escape }}">
-                {% elsif item.product.handle contains 'annual' or item.product.handle contains '490' %}
-                  <img src="{{ 'bot-suite-annual.jpg' | asset_url }}" alt="{{ item.title | escape }}">
-                {% elsif item.product.handle contains 'monthly' or item.product.handle contains '49' %}
-                  <img src="{{ 'bot-suite-monthly.jpg' | asset_url }}" alt="{{ item.title | escape }}">
-                {% else %}
-                  <img src="{{ 'trading-bot-suite.jpg' | asset_url }}" alt="{{ item.title | escape }}">
-                {% endif %}
-              </div>
+        <!-- Left Column: Cart Items -->
+        <div class="cart-left-column">
+          <!-- Cart Items -->
+          <div class="cart-items">
+            {% for item in cart.items %}
+              {% assign is_setup = false %}
+              {% if item.product.title contains 'Setup' or item.product.title contains 'Professional' %}
+                {% assign is_setup = true %}
+              {% endif %}
+              
+              <div class="cart-item {% if is_setup %}setup-item{% endif %}" data-line="{{ forloop.index }}">
+                <div class="item-image">
+                  {% if item.image %}
+                    <img src="{{ item.image | img_url: 'medium' }}" alt="{{ item.title | escape }}">
+                  {% elsif is_setup %}
+                    <img src="{{ 'bot-suite-setup.jpg' | asset_url }}" alt="{{ item.title | escape }}">
+                  {% elsif item.product.handle contains 'annual' or item.product.handle contains '490' %}
+                    <img src="{{ 'bot-suite-annual.jpg' | asset_url }}" alt="{{ item.title | escape }}">
+                  {% elsif item.product.handle contains 'monthly' or item.product.handle contains '49' %}
+                    <img src="{{ 'bot-suite-monthly.jpg' | asset_url }}" alt="{{ item.title | escape }}">
+                  {% else %}
+                    <img src="{{ 'trading-bot-suite.jpg' | asset_url }}" alt="{{ item.title | escape }}">
+                  {% endif %}
+                </div>
 
-              <div class="item-details">
-                {% if is_setup %}
-                  <span class="optional-badge">Optional<br>Add-On</span>
-                {% endif %}
-                
-                <h3 class="item-title">{{ item.product.title }}</h3>
-                {% if item.variant.title != 'Default Title' %}
-                  <p class="item-variant">{{ item.variant.title }}</p>
-                {% endif %}
-                
-                {% if item.selling_plan_allocation %}
-                  <div class="subscription-info">
-                    <span class="subscription-badge">Subscription</span>
-                    <p class="subscription-name">{{ item.selling_plan_allocation.selling_plan.name }}</p>
-                  </div>
-                {% else %}
-                  <p class="item-variant">one-time</p>
-                {% endif %}
+                <div class="item-details">
+                  {% if is_setup %}
+                    <span class="optional-badge">Optional<br>Add-On</span>
+                  {% endif %}
+                  
+                  <h3 class="item-title">{{ item.product.title }}</h3>
+                  {% if item.variant.title != 'Default Title' %}
+                    <p class="item-variant">{{ item.variant.title }}</p>
+                  {% endif %}
+                  
+                  {% if item.selling_plan_allocation %}
+                    <div class="subscription-info">
+                      <span class="subscription-badge">Subscription</span>
+                      <p class="subscription-name">{{ item.selling_plan_allocation.selling_plan.name }}</p>
+                    </div>
+                  {% else %}
+                    <p class="item-variant">one-time</p>
+                  {% endif %}
 
-                <p class="item-price">{{ item.final_line_price | money }}</p>
-              </div>
+                  <p class="item-price">{{ item.final_line_price | money }}</p>
+                </div>
 
-              <!-- Remove button positioned absolutely -->
-              <button class="remove-btn" data-line="{{ forloop.index }}" aria-label="Remove item">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M18 6L6 18M6 6l12 12"/>
-                </svg>
-              </button>
-            </div>
-          {% endfor %}
-        </div>
-
-        <!-- TradingView Username Field -->
-        <div class="tradingview-field-container">
-          <h3 class="tradingview-title">TradingView Account Required</h3>
-          <p class="tradingview-description">Enter your TradingView username for indicator access</p>
-          
-          <input 
-            type="text" 
-            id="tradingview-username" 
-            name="attributes[TradingView Username]" 
-            placeholder="e.g., JohnTrader123"
-            value="{{ cart.attributes['TradingView Username'] }}"
-            class="tradingview-input"
-            required
-          >
-          
-          <p class="tradingview-note">* Must match exactly (case-sensitive)</p>
-        </div>
-
-        <!-- Required Acknowledgments -->
-        <div class="required-acknowledgments">
-          <label class="acknowledgment-item">
-            <input type="checkbox" id="acknowledge-1" class="acknowledgment-checkbox">
-            <span>Full automation may require TradingView Premium, third-party automation services, and real-time data subscriptions (additional costs apply).</span>
-          </label>
-
-          <label class="acknowledgment-item">
-            <input type="checkbox" id="acknowledge-2" class="acknowledgment-checkbox">
-            <span>Past performance does not indicate future returns. Trading involves substantial risk of loss.</span>
-          </label>
-
-          <label class="acknowledgment-item">
-            <input type="checkbox" id="acknowledge-3" class="acknowledgment-checkbox">
-            <span>I will check my order confirmation email for Discord access, role assignments, and setup instructions.</span>
-          </label>
-        </div>
-
-        <!-- Cart Summary -->
-        <div class="cart-summary">
-          <h2>Order Summary</h2>
-          
-          <div class="summary-line">
-            <span>Subtotal:</span>
-            <span class="subtotal">{{ cart.total_price | money }}</span>
-          </div>
-
-          {% if cart.cart_level_discount_applications.size > 0 %}
-            {% for discount in cart.cart_level_discount_applications %}
-              <div class="summary-line discount">
-                <span>Discount ({{ discount.title }}):</span>
-                <span>-{{ discount.total_allocated_amount | money }}</span>
+                <!-- Remove button positioned absolutely -->
+                <button class="remove-btn" data-line="{{ forloop.index }}" aria-label="Remove item">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                  </svg>
+                </button>
               </div>
             {% endfor %}
-          {% endif %}
-
-          <div class="summary-line total">
-            <span>Total:</span>
-            <span class="total-price">{{ cart.total_price | money }}</span>
           </div>
 
-          <p class="tax-note">Taxes and shipping calculated at checkout</p>
+          <!-- Required Acknowledgments -->
+          <div class="required-acknowledgments">
+            <label class="acknowledgment-item">
+              <input type="checkbox" id="acknowledge-1" class="acknowledgment-checkbox">
+              <span>Full automation may require TradingView Premium, third-party automation services, and real-time data subscriptions (additional costs apply).</span>
+            </label>
 
-          <button type="button" class="checkout-btn" id="checkout-button" onclick="validateAndCheckout()">
-            Proceed to Checkout
-          </button>
+            <label class="acknowledgment-item">
+              <input type="checkbox" id="acknowledge-2" class="acknowledgment-checkbox">
+              <span>Past performance does not indicate future returns. Trading involves substantial risk of loss.</span>
+            </label>
 
-          <a href="/" class="continue-shopping">
-            ← Continue Shopping
-          </a>
+            <label class="acknowledgment-item">
+              <input type="checkbox" id="acknowledge-3" class="acknowledgment-checkbox">
+              <span>I will check my order confirmation email for Discord invites and setup instructions, regardless of whether I'm currently in the Discord server.</span>
+            </label>
+          </div>
         </div>
+
+        <!-- Right Column: TradingView Username Field -->
+        <div class="cart-right-column">
+          <div class="tradingview-field-container">
+            <h3 class="tradingview-title">TradingView Account Required</h3>
+            <p class="tradingview-description">Enter your TradingView username for indicator access</p>
+            
+            <input 
+              type="text" 
+              id="tradingview-username" 
+              name="attributes[TradingView Username]" 
+              placeholder="e.g., JohnTrader123"
+              value="{{ cart.attributes['TradingView Username'] }}"
+              class="tradingview-input"
+              required
+            >
+            
+            <p class="tradingview-note">* Must match exactly (case-sensitive)</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cart Summary Below Everything -->
+      <div class="cart-summary">
+        <h2>Order Summary</h2>
+        
+        <div class="summary-line">
+          <span>Subtotal:</span>
+          <span class="subtotal">{{ cart.total_price | money }}</span>
+        </div>
+
+        {% if cart.cart_level_discount_applications.size > 0 %}
+          {% for discount in cart.cart_level_discount_applications %}
+            <div class="summary-line discount">
+              <span>Discount ({{ discount.title }}):</span>
+              <span>-{{ discount.total_allocated_amount | money }}</span>
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        <div class="summary-line total">
+          <span>Total:</span>
+          <span class="total-price">{{ cart.total_price | money }}</span>
+        </div>
+
+        <p class="tax-note">Taxes and shipping calculated at checkout</p>
+
+        <button type="button" class="checkout-btn" id="checkout-button" onclick="validateAndCheckout()">
+          Proceed to Checkout
+        </button>
+
+        <a href="/" class="continue-shopping">
+          ← Continue Shopping
+        </a>
       </div>
     {% else %}
       <div class="empty-cart">
@@ -147,6 +152,25 @@
 <div id="cart-toast" class="cart-toast"></div>
 
 <style>
+  /* Two column layout for main content */
+  .cart-content {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+
+  .cart-left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .cart-right-column {
+    display: flex;
+    flex-direction: column;
+  }
+
   /* Consistent 1px borders for all boxes */
   .cart-item {
     border: 1px solid rgba(0, 255, 136, 0.3) !important;
@@ -162,30 +186,11 @@
     border: 1px solid rgba(0, 255, 136, 0.3) !important;
     border-radius: 8px;
     padding: 12px 16px;
-    margin: 20px 0;
   }
 
   .cart-summary {
     border: 1px solid rgba(0, 255, 136, 0.3) !important;
-    order: 4; /* Move to bottom */
-  }
-
-  /* Reorder the cart content */
-  .cart-content {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .cart-items {
-    order: 1;
-  }
-
-  .tradingview-field-container {
-    order: 2;
-  }
-
-  .required-acknowledgments {
-    order: 3;
+    width: 100%;
   }
 
   .acknowledgment-item {
@@ -214,6 +219,18 @@
 
   .acknowledgment-item:hover {
     color: #e8e8e8;
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 968px) {
+    .cart-content {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .cart-right-column {
+      order: -1;
+    }
   }
 
   @media (max-width: 768px) {
