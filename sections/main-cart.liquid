@@ -80,32 +80,23 @@
           >
           
           <p class="tradingview-note">* Must match exactly (case-sensitive)</p>
-          
-          <div style="background: rgba(0, 20, 10, 0.3); border: 1px solid rgba(0, 255, 136, 0.3); border-radius: 8px; padding: 16px; margin-top: 20px;">
-            <div style="margin-bottom: 10px;">
-              <strong style="color: #00ff00; font-size: 15px; font-weight: 700;">Discord Access:</strong>
-            </div>
-            <p style="color: #b8b8b8; font-size: 14px; line-height: 1.6; margin: 0;">
-              Your Discord will be automatically linked using your email. If you're not in our Discord yet, you'll receive an invitation link after purchase!
-            </p>
-          </div>
         </div>
 
         <!-- Required Acknowledgments -->
         <div class="required-acknowledgments">
           <label class="acknowledgment-item">
             <input type="checkbox" id="acknowledge-1" class="acknowledgment-checkbox">
-            <span>I understand that third-party subscriptions (TradingView Premium, automation services, and data feeds) are required and cost extra.</span>
+            <span>Full automation requires TradingView Premium, third-party automation services, and real-time data subscriptions (additional costs apply).</span>
           </label>
 
           <label class="acknowledgment-item">
             <input type="checkbox" id="acknowledge-2" class="acknowledgment-checkbox">
-            <span>I acknowledge that past performance does not indicate future returns and trading involves substantial risk.</span>
+            <span>Past performance does not indicate future returns. Trading involves substantial risk of loss.</span>
           </label>
 
           <label class="acknowledgment-item">
             <input type="checkbox" id="acknowledge-3" class="acknowledgment-checkbox">
-            <span>I will open my Shopify order confirmation email to access Discord invites, role assignments, and setup instructions.</span>
+            <span>I will check my order confirmation email for Discord access, role assignments, and setup instructions.</span>
           </label>
         </div>
 
@@ -156,23 +147,36 @@
 <div id="cart-toast" class="cart-toast"></div>
 
 <style>
+  /* Consistent 1px borders for all boxes */
+  .cart-item {
+    border: 1px solid rgba(0, 255, 136, 0.3) !important;
+  }
+
+  .tradingview-field-container {
+    border: 1px solid rgba(0, 255, 136, 0.3) !important;
+  }
+
   .required-acknowledgments {
     background: rgba(0, 20, 10, 0.3);
-    border: 1px solid rgba(0, 255, 136, 0.3);
+    border: 1px solid rgba(0, 255, 136, 0.3) !important;
     border-radius: 8px;
-    padding: 20px;
-    margin: 24px 0;
+    padding: 16px;
+    margin: 20px 0;
+  }
+
+  .cart-summary {
+    border: 1px solid rgba(0, 255, 136, 0.3) !important;
   }
 
   .acknowledgment-item {
     display: flex;
     align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 16px;
+    gap: 10px;
+    margin-bottom: 12px;
     cursor: pointer;
     color: #b8b8b8;
-    font-size: 14px;
-    line-height: 1.6;
+    font-size: 13px;
+    line-height: 1.5;
   }
 
   .acknowledgment-item:last-child {
@@ -180,9 +184,9 @@
   }
 
   .acknowledgment-checkbox {
-    width: 20px;
-    height: 20px;
-    margin-top: 2px;
+    width: 18px;
+    height: 18px;
+    margin-top: 1px;
     cursor: pointer;
     flex-shrink: 0;
     accent-color: #00ff88;
@@ -194,11 +198,17 @@
 
   @media (max-width: 768px) {
     .required-acknowledgments {
-      padding: 16px;
+      padding: 14px;
     }
 
     .acknowledgment-item {
-      font-size: 13px;
+      font-size: 12px;
+      gap: 8px;
+    }
+
+    .acknowledgment-checkbox {
+      width: 16px;
+      height: 16px;
     }
   }
 </style>
