@@ -43,5 +43,65 @@
   <script src="{{ 'animations.js' | asset_url }}" defer></script>
   <script src="{{ 'main.js' | asset_url }}" defer></script>
 
+  <!-- App Authentication Integration -->
+  <script>
+  (function() {
+    // Check if user is logged in to the app
+    fetch('https://app.marketsniper.pro/api/auth/status', {
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.authenticated && data.firstName) {
+        // Replace desktop login button
+        const loginBtn = document.querySelector('.login-btn');
+        if (loginBtn) {
+          const userLink = document.createElement('a');
+          userLink.href = 'https://app.marketsniper.pro/portal';
+          userLink.className = 'account-icon';
+          userLink.innerHTML = `
+            <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #00ff41 0%, #00cc33 100%); color: #000; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; box-shadow: 0 2px 8px rgba(0, 255, 65, 0.3);">
+              ${data.firstName.charAt(0).toUpperCase()}
+            </div>
+            <span class="account-name">${data.firstName}</span>
+          `;
+          loginBtn.replaceWith(userLink);
+        }
+        
+        // Replace mobile login button
+        const mobileLogin = document.querySelector('.mobile-login');
+        if (mobileLogin) {
+          const mobileUserLink = document.createElement('a');
+          mobileUserLink.href = 'https://app.marketsniper.pro/portal';
+          mobileUserLink.className = 'mobile-account';
+          mobileUserLink.innerHTML = `
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>${data.firstName}'s Portal</span>
+          `;
+          mobileLogin.replaceWith(mobileUserLink);
+        }
+      }
+    })
+    .catch(err => {
+      // User not logged in - keep default login buttons
+      console.log('Auth check:', err);
+    });
+  })();
+  </script>
+
+  <style>
+  /* Hover effect for user avatar */
+  .account-icon:hover div {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+  }
+  </style>
+
 </body>
 </html>
