@@ -104,8 +104,6 @@
               {% endfor %}
             {% endif %}
 
-            <div class="summary-divider"></div>
-
             <div class="summary-line total">
               <span>Total:</span>
               <span class="total-price">{{ cart.total_price | money }}</span>
@@ -203,7 +201,7 @@
   }
 
   .summary-line.total {
-    margin-top: 16px;
+    margin-top: 8px;
     margin-bottom: 8px;
   }
 
@@ -215,12 +213,6 @@
 
   .summary-line.total .total-price {
     color: #00ff88;
-  }
-
-  .summary-divider {
-    height: 1px;
-    background: rgba(0, 255, 136, 0.2);
-    margin: 16px 0;
   }
 
   .tax-note {
