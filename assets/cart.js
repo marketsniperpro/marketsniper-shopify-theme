@@ -49,13 +49,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Validate and proceed to checkout (global function for inline onclick)
 function validateAndCheckout() {
+  const checkbox1 = document.getElementById('acknowledge-1');
+  const checkbox2 = document.getElementById('acknowledge-2');
   const tvUsername = document.getElementById('tradingview-username')?.value.trim();
+  
+  // Check if both checkboxes are checked
+  if (checkbox1 && checkbox2 && (!checkbox1.checked || !checkbox2.checked)) {
+    showToast('Please check all acknowledgment boxes before proceeding', 'error');
+    
+    // Highlight unchecked boxes
+    if (!checkbox1.checked) {
+      checkbox1.parentElement.style.color = '#ff6b6b';
+      setTimeout(() => {
+        checkbox1.parentElement.style.color = '#b8b8b8';
+      }, 2000);
+    }
+    if (!checkbox2.checked) {
+      checkbox2.parentElement.style.color = '#ff6b6b';
+      setTimeout(() => {
+        checkbox2.parentElement.style.color = '#b8b8b8';
+      }, 2000);
+    }
+    
+    return false;
+  }
   
   // Validate TradingView username
   if (!tvUsername || tvUsername.length < 3) {
     showToast('Please enter your TradingView username', 'error');
     document.getElementById('tradingview-username')?.focus();
-    return;
+    return false;
   }
   
   // Save to cart attributes
@@ -81,4 +104,6 @@ function validateAndCheckout() {
     console.error('Error:', error);
     showToast('Error saving information. Please try again.', 'error');
   });
+  
+  return false;
 }
