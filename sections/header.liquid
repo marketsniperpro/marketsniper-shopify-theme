@@ -1,15 +1,14 @@
 {% comment %}
   sections/header.liquid
-  Updated site header with CTA button
+  Updated site header with Shopify customer account integration
 {% endcomment %}
 
 <nav class="navbar">
   <div class="container">
     <a href="/" class="logo">
       <span class="logo-icon">
-        <img src="{{ 'logo.jpg' | asset_url }}" alt="{{ shop.name }}">
+        <img src="{{ 'market-sniper-banner.png' | asset_url }}" alt="{{ shop.name }}">
       </span>
-      <span class="logo-text">{{ section.settings.logo_text | default: shop.name }}</span>
     </a>
     
     <ul class="nav-links">
@@ -32,28 +31,26 @@
         </a>
       </li>
       
-      <!-- Login/Account Icon -->
-      {% if customer %}
-        <li>
-          <a href="/account" class="account-icon" title="My Account">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-            <span class="account-name">{{ customer.first_name | default: "Account" }}</span>
-          </a>
-        </li>
-      {% else %}
-        <li>
-          <a href="/account/login" class="login-btn">
+      <!-- Login/Account Icon - Shopify Customer Account -->
+      <li>
+        {% if customer %}
+          <a href="/account" class="account-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
               <circle cx="12" cy="7" r="4"></circle>
             </svg>
-            Login
+            <span class="account-name">{{ customer.first_name }}</span>
           </a>
-        </li>
-      {% endif %}
+        {% else %}
+          <a href="https://app.marketsniper.pro/login" class="login-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Login</span>
+          </a>
+        {% endif %}
+      </li>
     </ul>
     
     <button class="mobile-menu-btn" aria-label="Toggle mobile menu">
@@ -91,30 +88,34 @@
       </a>
     </li>
     
-    {% if customer %}
-      <li>
+    <!-- Mobile Auth Link - Shopify Customer Account -->
+    <li>
+      {% if customer %}
         <a href="/account" class="mobile-account">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
             <circle cx="12" cy="7" r="4"></circle>
           </svg>
-          {{ customer.first_name | default: "My Account" }}
+          <span>{{ customer.first_name }}'s Account</span>
         </a>
-      </li>
-      <li>
-        <a href="/account/logout" class="mobile-logout">Logout</a>
-      </li>
-    {% else %}
-      <li>
-        <a href="/account/login" class="mobile-login">
+        <a href="/account/logout" class="mobile-logout">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+          <span>Logout</span>
+        </a>
+      {% else %}
+        <a href="https://app.marketsniper.pro/login" class="mobile-login">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
             <circle cx="12" cy="7" r="4"></circle>
           </svg>
-          Login
+          <span>Login</span>
         </a>
-      </li>
-    {% endif %}
+      {% endif %}
+    </li>
   </ul>
 </div>
 
