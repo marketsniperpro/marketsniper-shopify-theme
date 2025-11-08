@@ -91,6 +91,58 @@
           </div>
         </div>
 
+        <!-- Required Prerequisites Section -->
+        <div class="prerequisites-container">
+          <h3 class="prerequisites-title">REQUIRED PREREQUISITES</h3>
+          
+          <div class="prerequisite-item">
+            <div class="prerequisite-number">1</div>
+            <div class="prerequisite-content">
+              <strong>TradingView Premium Account Required</strong>
+              <p>A paid TradingView subscription (Pro, Pro+, or Premium) is required for full automation and real-time alerts. Basic/Free accounts have limited functionality.</p>
+            </div>
+          </div>
+
+          <div class="prerequisite-item">
+            <div class="prerequisite-number">2</div>
+            <div class="prerequisite-content">
+              <strong>Third-Party Broker/Exchange Integration</strong>
+              <p>Full automation requires a compatible third-party automation service (e.g., 3Commas, Alertatron, or similar) to execute trades. Additional subscription costs may apply.</p>
+            </div>
+          </div>
+
+          <div class="prerequisite-item">
+            <div class="prerequisite-number">3</div>
+            <div class="prerequisite-content">
+              <strong>Exchange/Broker Data Subscriptions</strong>
+              <p>Real-time data subscriptions from your exchange or broker may be required for optimal performance. Costs vary by provider.</p>
+            </div>
+          </div>
+
+          <div class="prerequisite-item disclaimer">
+            <div class="prerequisite-label">RISK DISCLOSURE</div>
+            <div class="prerequisite-content">
+              <strong>Trading Risk Warning</strong>
+              <p><strong>Past performance does not indicate future returns.</strong> Trading involves substantial risk of loss. Only trade with capital you can afford to lose.</p>
+            </div>
+          </div>
+
+          <div class="prerequisite-item action-required">
+            <div class="prerequisite-label">ACTION REQUIRED</div>
+            <div class="prerequisite-content">
+              <strong>Important: Check Your Email After Purchase</strong>
+              <p><strong>You MUST open your Shopify order confirmation email</strong> to:</p>
+              <ul style="margin: 8px 0 0 0; padding-left: 20px; color: #b8b8b8;">
+                <li>Receive your Discord server invite link (if not already a member)</li>
+                <li>Get automatic Discord role assignment</li>
+                <li>Access setup call scheduling link (if you purchased the setup service)</li>
+                <li>View complete onboarding instructions</li>
+              </ul>
+              <p style="margin-top: 8px; color: #ff6b6b; font-weight: 600;">Without opening this email, you will not receive access to Discord roles or onboarding resources.</p>
+            </div>
+          </div>
+        </div>
+
         <!-- Cart Summary -->
         <div class="cart-summary">
           <h2>Order Summary</h2>
@@ -136,6 +188,152 @@
 
 <!-- Toast Notification -->
 <div id="cart-toast" class="cart-toast"></div>
+
+<style>
+  /* Prerequisites Container Styles */
+  .prerequisites-container {
+    background: rgba(20, 20, 20, 0.6);
+    border: 2px solid rgba(255, 107, 107, 0.3);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0;
+  }
+
+  .prerequisites-title {
+    color: #ff6b6b;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 20px 0;
+    letter-spacing: 0.5px;
+  }
+
+  .prerequisite-item {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    gap: 16px;
+    transition: all 0.3s ease;
+  }
+
+  .prerequisite-item:hover {
+    border-color: rgba(0, 255, 136, 0.3);
+    transform: translateX(4px);
+  }
+
+  .prerequisite-item.disclaimer {
+    border-color: rgba(255, 193, 7, 0.4);
+    background: rgba(255, 193, 7, 0.05);
+  }
+
+  .prerequisite-item.action-required {
+    border-color: rgba(255, 107, 107, 0.5);
+    background: rgba(255, 107, 107, 0.08);
+  }
+
+  .prerequisite-number {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #00ff88 0%, #00cc66 100%);
+    color: #000;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .prerequisite-label {
+    background: rgba(255, 107, 107, 0.2);
+    color: #ff6b6b;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .prerequisite-item.disclaimer .prerequisite-label {
+    background: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+  }
+
+  .prerequisite-content {
+    flex: 1;
+  }
+
+  .prerequisite-content strong {
+    color: #00ff88;
+    font-size: 16px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .prerequisite-item.disclaimer .prerequisite-content strong {
+    color: #ffc107;
+  }
+
+  .prerequisite-item.action-required .prerequisite-content strong {
+    color: #ff6b6b;
+  }
+
+  .prerequisite-content p {
+    color: #b8b8b8;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .prerequisite-content ul {
+    list-style: disc;
+    margin: 8px 0 0 0;
+    padding-left: 20px;
+  }
+
+  .prerequisite-content ul li {
+    color: #b8b8b8;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 4px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .prerequisites-container {
+      padding: 16px;
+    }
+
+    .prerequisite-item {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .prerequisite-number {
+      width: 28px;
+      height: 28px;
+      font-size: 16px;
+    }
+
+    .prerequisites-title {
+      font-size: 16px;
+    }
+
+    .prerequisite-content strong {
+      font-size: 15px;
+    }
+
+    .prerequisite-content p,
+    .prerequisite-content ul li {
+      font-size: 13px;
+    }
+  }
+</style>
 
 <script src="{{ 'cart.js' | asset_url }}" defer></script>
 
