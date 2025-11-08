@@ -424,21 +424,23 @@
   });
 
   function validateBeforeSubmit() {
+    const tvUsername = document.getElementById('tradingview-username');
     const checkbox1 = document.getElementById('acknowledge-1');
     const checkbox2 = document.getElementById('acknowledge-2');
-    const tvUsername = document.getElementById('tradingview-username');
 
-    if (!checkbox1 || !checkbox2 || !tvUsername) {
+    if (!tvUsername || !checkbox1 || !checkbox2) {
       return false;
     }
 
-    if (!checkbox1.checked || !checkbox2.checked) {
-      showToast('Please check all acknowledgment boxes before proceeding');
-      return false;
-    }
-
+    // Check TradingView username first
     if (!tvUsername.value.trim()) {
       showToast('Please enter your TradingView username');
+      return false;
+    }
+
+    // Then check checkboxes
+    if (!checkbox1.checked || !checkbox2.checked) {
+      showToast('Please check all acknowledgment boxes before proceeding');
       return false;
     }
 
@@ -446,10 +448,18 @@
   }
 
   function validateAndCheckout() {
+    const tvUsername = document.getElementById('tradingview-username');
     const checkbox1 = document.getElementById('acknowledge-1');
     const checkbox2 = document.getElementById('acknowledge-2');
     
-    // Check if both checkboxes are checked
+    // Validate TradingView username FIRST
+    if (!tvUsername.value.trim()) {
+      showToast('Please enter your TradingView username');
+      tvUsername.focus();
+      return false;
+    }
+    
+    // Then check if both checkboxes are checked
     if (!checkbox1.checked || !checkbox2.checked) {
       showToast('Please check all acknowledgment boxes before proceeding');
       
@@ -467,14 +477,6 @@
         }, 2000);
       }
       
-      return false;
-    }
-    
-    // Validate TradingView username
-    const tvUsername = document.getElementById('tradingview-username').value.trim();
-    if (!tvUsername) {
-      showToast('Please enter your TradingView username');
-      document.getElementById('tradingview-username').focus();
       return false;
     }
     

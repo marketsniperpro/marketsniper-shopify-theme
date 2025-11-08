@@ -49,11 +49,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Validate and proceed to checkout (global function for inline onclick)
 function validateAndCheckout() {
+  const tvUsername = document.getElementById('tradingview-username')?.value.trim();
   const checkbox1 = document.getElementById('acknowledge-1');
   const checkbox2 = document.getElementById('acknowledge-2');
-  const tvUsername = document.getElementById('tradingview-username')?.value.trim();
   
-  // Check if both checkboxes are checked
+  // Validate TradingView username FIRST
+  if (!tvUsername || tvUsername.length < 3) {
+    showToast('Please enter your TradingView username', 'error');
+    document.getElementById('tradingview-username')?.focus();
+    return false;
+  }
+  
+  // Then check if both checkboxes are checked
   if (checkbox1 && checkbox2 && (!checkbox1.checked || !checkbox2.checked)) {
     showToast('Please check all acknowledgment boxes before proceeding', 'error');
     
@@ -71,13 +78,6 @@ function validateAndCheckout() {
       }, 2000);
     }
     
-    return false;
-  }
-  
-  // Validate TradingView username
-  if (!tvUsername || tvUsername.length < 3) {
-    showToast('Please enter your TradingView username', 'error');
-    document.getElementById('tradingview-username')?.focus();
     return false;
   }
   
