@@ -55,10 +55,10 @@
     })
     .then(res => res.json())
     .then(data => {
-      console.log('Auth data:', data); // Debug - check what's being returned
+      console.log('Auth data:', data); // Debug
       
       if (data.authenticated) {
-        // Use firstName, or fallback to truncated email
+        // Use firstName
         let displayName = data.firstName || 'Account';
         
         // Replace desktop login button
@@ -66,28 +66,14 @@
         if (loginBtn) {
           const userLink = document.createElement('a');
           userLink.href = 'https://app.marketsniper.pro/portal';
-          userLink.className = 'account-icon';
-          userLink.style.cssText = 'display: flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid #CECECE; border-radius: 6px; text-decoration: none; transition: all 0.2s ease;';
+          userLink.className = 'login-btn'; // Keep same class for same styling
           userLink.innerHTML = `
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#CECECE" stroke-width="2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
               <circle cx="12" cy="7" r="4"></circle>
             </svg>
-            <span style="color: #CECECE; font-weight: 500;">${displayName}</span>
+            <span>${displayName}</span>
           `;
-          
-          // Hover effect
-          userLink.addEventListener('mouseenter', function() {
-            this.style.borderColor = '#00ff41';
-            this.querySelector('svg').style.stroke = '#00ff41';
-            this.querySelector('span').style.color = '#00ff41';
-          });
-          userLink.addEventListener('mouseleave', function() {
-            this.style.borderColor = '#CECECE';
-            this.querySelector('svg').style.stroke = '#CECECE';
-            this.querySelector('span').style.color = '#CECECE';
-          });
-          
           loginBtn.replaceWith(userLink);
         }
         
@@ -96,13 +82,13 @@
         if (mobileLogin) {
           const mobileUserLink = document.createElement('a');
           mobileUserLink.href = 'https://app.marketsniper.pro/portal';
-          mobileUserLink.className = 'mobile-account';
+          mobileUserLink.className = 'mobile-login'; // Keep same class
           mobileUserLink.innerHTML = `
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
               <circle cx="12" cy="7" r="4"></circle>
             </svg>
-            <span>${displayName}'s Portal</span>
+            <span>${displayName}</span>
           `;
           mobileLogin.replaceWith(mobileUserLink);
         }
@@ -113,7 +99,7 @@
     });
   })();
   </script>
-
+  
   <style>
   /* Hover effect for account icon */
   .account-icon:hover svg {
