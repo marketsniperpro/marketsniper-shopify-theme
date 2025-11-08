@@ -55,7 +55,14 @@
     })
     .then(res => res.json())
     .then(data => {
-      if (data.authenticated && data.firstName) {
+      if (data.authenticated) {
+        // Determine display name (firstName or truncated email)
+        let displayName = data.firstName || 'Account';
+        if (!data.firstName && data.email) {
+          const emailUser = data.email.split('@')[0];
+          displayName = emailUser.length > 12 ? emailUser.substring(0, 12) + '...' : emailUser;
+        }
+
         // Replace desktop login button
         const loginBtn = document.querySelector('.login-btn');
         if (loginBtn) {
@@ -63,10 +70,11 @@
           userLink.href = 'https://app.marketsniper.pro/portal';
           userLink.className = 'account-icon';
           userLink.innerHTML = `
-            <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #00ff41 0%, #00cc33 100%); color: #000; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; box-shadow: 0 2px 8px rgba(0, 255, 65, 0.3);">
-              ${data.firstName.charAt(0).toUpperCase()}
-            </div>
-            <span class="account-name">${data.firstName}</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6b8f7a" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span class="account-name">${displayName}</span>
           `;
           loginBtn.replaceWith(userLink);
         }
@@ -82,7 +90,7 @@
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
               <circle cx="12" cy="7" r="4"></circle>
             </svg>
-            <span>${data.firstName}'s Portal</span>
+            <span>${displayName}'s Portal</span>
           `;
           mobileLogin.replaceWith(mobileUserLink);
         }
@@ -95,6 +103,14 @@
   })();
   </script>
 
+  <style>
+  /* Hover effect for account icon */
+  .account-icon:hover svg {
+    stroke: #00ff41;
+    transition: stroke 0.2s ease;
+  }
+  </style>
+  
   <style>
   /* Hover effect for user avatar */
   .account-icon:hover div {
