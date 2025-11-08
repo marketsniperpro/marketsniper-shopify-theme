@@ -11,7 +11,6 @@
       <div class="cart-content">
         <!-- Left Column: Cart Items -->
         <div class="cart-left-column">
-          <!-- Cart Items -->
           <div class="cart-items">
             {% for item in cart.items %}
               {% assign is_setup = false %}
@@ -65,28 +64,11 @@
               </div>
             {% endfor %}
           </div>
-
-          <!-- Required Acknowledgments -->
-          <div class="required-acknowledgments">
-            <label class="acknowledgment-item">
-              <input type="checkbox" id="acknowledge-1" class="acknowledgment-checkbox">
-              <span>Full automation may require TradingView Premium, third-party automation services, and real-time data subscriptions (additional costs apply).</span>
-            </label>
-
-            <label class="acknowledgment-item">
-              <input type="checkbox" id="acknowledge-2" class="acknowledgment-checkbox">
-              <span>Past performance does not indicate future returns. Trading involves substantial risk of loss.</span>
-            </label>
-
-            <label class="acknowledgment-item">
-              <input type="checkbox" id="acknowledge-3" class="acknowledgment-checkbox">
-              <span>I will check my order confirmation email for Discord invites and setup instructions, regardless of whether I'm currently in the Discord server.</span>
-            </label>
-          </div>
         </div>
 
-        <!-- Right Column: TradingView Username Field -->
+        <!-- Right Column: TradingView Username + Order Summary -->
         <div class="cart-right-column">
+          <!-- TradingView Username Field -->
           <div class="tradingview-field-container">
             <h3 class="tradingview-title">TradingView Account Required</h3>
             <p class="tradingview-description">Enter your TradingView username for indicator access</p>
@@ -103,41 +85,59 @@
             
             <p class="tradingview-note">* Must match exactly (case-sensitive)</p>
           </div>
-        </div>
-      </div>
 
-      <!-- Cart Summary Below Everything -->
-      <div class="cart-summary">
-        <h2>Order Summary</h2>
-        
-        <div class="summary-line">
-          <span>Subtotal:</span>
-          <span class="subtotal">{{ cart.total_price | money }}</span>
-        </div>
-
-        {% if cart.cart_level_discount_applications.size > 0 %}
-          {% for discount in cart.cart_level_discount_applications %}
-            <div class="summary-line discount">
-              <span>Discount ({{ discount.title }}):</span>
-              <span>-{{ discount.total_allocated_amount | money }}</span>
+          <!-- Order Summary with Checkboxes -->
+          <div class="cart-summary">
+            <h2>Order Summary</h2>
+            
+            <div class="summary-line">
+              <span>Subtotal:</span>
+              <span class="subtotal">{{ cart.total_price | money }}</span>
             </div>
-          {% endfor %}
-        {% endif %}
 
-        <div class="summary-line total">
-          <span>Total:</span>
-          <span class="total-price">{{ cart.total_price | money }}</span>
+            {% if cart.cart_level_discount_applications.size > 0 %}
+              {% for discount in cart.cart_level_discount_applications %}
+                <div class="summary-line discount">
+                  <span>Discount ({{ discount.title }}):</span>
+                  <span>-{{ discount.total_allocated_amount | money }}</span>
+                </div>
+              {% endfor %}
+            {% endif %}
+
+            <div class="summary-line total">
+              <span>Total:</span>
+              <span class="total-price">{{ cart.total_price | money }}</span>
+            </div>
+
+            <p class="tax-note">Taxes and shipping calculated at checkout</p>
+
+            <!-- Required Acknowledgments Inside Summary -->
+            <div class="required-acknowledgments">
+              <label class="acknowledgment-item">
+                <input type="checkbox" id="acknowledge-1" class="acknowledgment-checkbox">
+                <span>Full automation may require TradingView Premium, third-party automation services, and real-time data subscriptions (additional costs apply).</span>
+              </label>
+
+              <label class="acknowledgment-item">
+                <input type="checkbox" id="acknowledge-2" class="acknowledgment-checkbox">
+                <span>Past performance does not indicate future returns. Trading involves substantial risk of loss.</span>
+              </label>
+
+              <label class="acknowledgment-item">
+                <input type="checkbox" id="acknowledge-3" class="acknowledgment-checkbox">
+                <span>I will check my order confirmation email for Discord invites and setup instructions, regardless of whether I'm currently in the Discord server.</span>
+              </label>
+            </div>
+
+            <button type="button" class="checkout-btn" id="checkout-button" onclick="validateAndCheckout()">
+              Proceed to Checkout
+            </button>
+
+            <a href="/" class="continue-shopping">
+              ← Continue Shopping
+            </a>
+          </div>
         </div>
-
-        <p class="tax-note">Taxes and shipping calculated at checkout</p>
-
-        <button type="button" class="checkout-btn" id="checkout-button" onclick="validateAndCheckout()">
-          Proceed to Checkout
-        </button>
-
-        <a href="/" class="continue-shopping">
-          ← Continue Shopping
-        </a>
       </div>
     {% else %}
       <div class="empty-cart">
@@ -157,7 +157,6 @@
     display: grid;
     grid-template-columns: 1fr 400px;
     gap: 24px;
-    margin-bottom: 24px;
   }
 
   .cart-left-column {
@@ -169,6 +168,7 @@
   .cart-right-column {
     display: flex;
     flex-direction: column;
+    gap: 20px;
   }
 
   /* Consistent 1px borders for all boxes */
@@ -181,16 +181,16 @@
     border: 1px solid rgba(0, 255, 136, 0.3) !important;
   }
 
+  .cart-summary {
+    border: 1px solid rgba(0, 255, 136, 0.3) !important;
+  }
+
   .required-acknowledgments {
     background: rgba(0, 20, 10, 0.3);
     border: 1px solid rgba(0, 255, 136, 0.3) !important;
     border-radius: 8px;
     padding: 12px 16px;
-  }
-
-  .cart-summary {
-    border: 1px solid rgba(0, 255, 136, 0.3) !important;
-    width: 100%;
+    margin: 16px 0;
   }
 
   .acknowledgment-item {
@@ -226,10 +226,6 @@
     .cart-content {
       grid-template-columns: 1fr;
       gap: 20px;
-    }
-
-    .cart-right-column {
-      order: -1;
     }
   }
 
