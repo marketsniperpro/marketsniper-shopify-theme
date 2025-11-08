@@ -1,11 +1,12 @@
 /* Header styles extracted from sections/header.liquid */
 body { padding-top: 70px; }
 body, html, #shopify-section-header { position: relative; z-index: auto; }
-.navbar { background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0, 255, 65, 0.2); position: fixed; top: 0; left: 0; right: 0; width: 100%; z-index: 1000; padding: 15px 0; }
-.navbar .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
-.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-size: 1.3rem; font-weight: 700; color: white; transition: opacity 0.3s ease; }
+.navbar { background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0, 255, 65, 0.2); position: fixed; top: 0; left: 0; right: 0; width: 100%; z-index: 1000; padding: 12px 0; }
+.navbar .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; min-height: 60px; }
+.logo { display: flex; align-items: center; text-decoration: none; transition: opacity 0.3s ease; }
 .logo:hover { opacity: 0.8; }
-.logo-icon img { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; }
+.logo-icon { display: flex; align-items: center; height: 50px; }
+.logo-icon img { height: 50px; width: auto; max-width: 280px; object-fit: contain; border-radius: 0; display: block; }
 .logo-text { color: #00ff41; }
 .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; margin: 0; padding: 0; }
 .nav-links a { color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 1rem; transition: color 0.3s ease; font-weight: 500; }
@@ -45,6 +46,10 @@ body, html, #shopify-section-header { position: relative; z-index: auto; }
 .mobile-cta-btn { background: linear-gradient(135deg, #00ff41, #00cc33) !important; color: #000 !important; padding: 15px 20px !important; border-radius: 10px !important; font-weight: 700 !important; text-align: center; margin-top: 20px; box-shadow: 0 4px 15px rgba(0, 255, 65, 0.3); }
 .mobile-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 255, 65, 0.5); padding-left: 20px !important; }
 @media (max-width: 968px) { .nav-links { display: none; } .mobile-menu-btn { display: flex; } }
-@media (max-width: 640px) { .mobile-menu { width: 100%; } }
-
-
+@media (max-width: 640px) { 
+  .mobile-menu { width: 100%; } 
+  .navbar { padding: 10px 0; }
+  .navbar .container { padding: 0 15px; min-height: 55px; }
+  .logo-icon { height: 45px; }
+  .logo-icon img { max-width: 200px; height: 45px; } 
+}
