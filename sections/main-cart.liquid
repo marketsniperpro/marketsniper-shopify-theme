@@ -1,6 +1,6 @@
 {% comment %}
   sections/main-cart.liquid
-  Shopping cart page - Setup fee as optional product
+  Shopping cart page - TradingView username only, Discord auto-linked via email
 {% endcomment %}
 
 <section class="cart-page">
@@ -44,7 +44,7 @@
                 
                 {% if item.selling_plan_allocation %}
                   <div class="subscription-info">
-                    <span class="subscription-badge">📅 Subscription</span>
+                    <span class="subscription-badge">Subscription</span>
                     <p class="subscription-name">{{ item.selling_plan_allocation.selling_plan.name }}</p>
                   </div>
                 {% else %}
@@ -65,20 +65,27 @@
         </div>
 
         <!-- TradingView Username Field -->
- <div class="tradingview-field-container">
-  <h3 class="tradingview-title">📊 TradingView Account Information</h3>
-  <p class="tradingview-description">Enter your TradingView username exactly as shown (case-sensitive)</p>
-  <input 
-    type="text" 
-    id="cart-note" 
-    name="note" 
-    placeholder="TradingView username (case-sensitive)"
-    value="{{ cart.note }}"
-    class="tradingview-input"
-    required
-  >
-  <p class="tradingview-note">* Must match exactly for activation</p>
-</div>
+        <div class="tradingview-field-container">
+          <h3 class="tradingview-title">TradingView Account Required</h3>
+          <p class="tradingview-description">Enter your TradingView username for indicator access</p>
+          
+          <input 
+            type="text" 
+            id="tradingview-username" 
+            name="attributes[TradingView Username]" 
+            placeholder="e.g., JohnTrader123"
+            value="{{ cart.attributes['TradingView Username'] }}"
+            class="tradingview-input"
+            required
+          >
+          
+          <p class="tradingview-note">* Must match exactly (case-sensitive)</p>
+          
+          <div style="background: rgba(0,20,10,0.4); border-left: 3px solid #00ff88; padding: 12px; border-radius: 4px; font-size: 13px; line-height: 1.6; margin-top: 15px; color: #ccc;">
+            <strong style="color: #00ff88;">💡 Discord Access:</strong><br>
+            Your Discord will be automatically linked using your email. If you're not in our Discord yet, you'll receive an invitation link after purchase!
+          </div>
+        </div>
 
         <!-- Cart Summary -->
         <div class="cart-summary">

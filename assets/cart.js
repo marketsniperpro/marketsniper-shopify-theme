@@ -1,20 +1,27 @@
-// Cart page functionality (extracted from sections/main-cart.liquid)
+// Cart page functionality
 document.addEventListener('DOMContentLoaded', function() {
   const toast = document.getElementById('cart-toast');
 
-  function showToast(message, isError = false) {
-    if (!toast) return;
-    toast.textContent = message;
-    toast.classList.remove('error');
-    if (isError) {
-      toast.classList.add('error');
+  // Show toast notification
+  function showToast(message, type = 'success') {
+    if (!toast) {
+      const newToast = document.createElement('div');
+      newToast.id = 'cart-toast';
+      newToast.className = 'cart-toast';
+      document.body.appendChild(newToast);
     }
-    toast.classList.add('show');
+    
+    const toastElement = document.getElementById('cart-toast');
+    toastElement.textContent = message;
+    toastElement.className = `cart-toast ${type} show`;
     
     setTimeout(() => {
-      toast.classList.remove('show');
-    }, 2000);
+      toastElement.classList.remove('show');
+    }, 3000);
   }
+
+  // Make showToast available globally
+  window.showToast = showToast;
 
   // Remove item from cart
   const removeButtons = document.querySelectorAll('.remove-btn');
@@ -34,36 +41,44 @@ document.addEventListener('DOMContentLoaded', function() {
       })
       .catch(error => {
         console.error('Error:', error);
-        showToast('Error removing item', true);
+        showToast('Error removing item', 'error');
       });
     });
   });
-
-  // Validate TradingView username before checkout
-  window.validateAndCheckout = function() {
-    const tradingViewInput = document.getElementById('cart-note');
-    const username = tradingViewInput ? tradingViewInput.value.trim() : '';
-    
-    if (!username) {
-      showToast('Please enter your TradingView username', true);
-      if (tradingViewInput) tradingViewInput.focus();
-      return;
-    }
-    
-    // Save the note to cart
-    fetch('/cart/update.js', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ note: username })
-    })
-    .then(response => response.json())
-    .then(data => {
-      window.location.href = '/checkout';
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      showToast('Error saving username', true);
-    });
-  }
 });
 
+// Validate and proceed to checkout (global function for inline onclick)
+function validateAndCheckout() {
+  const tvUsername = document.getElementById('tradingview-username')?.value.trim();
+  
+  // Validate TradingView username
+  if (!tvUsername || tvUsername.length < 3) {
+    showToast('❌ Please enter your TradingView username', 'error');
+    document.getElementById('tradingview-username')?.focus();
+    return;
+  }
+  
+  // Save to cart attributes
+  fetch('/cart/update.js', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      attributes: {
+        'TradingView Username': tvUsername
+      }
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    showToast('✅ Information saved! Proceeding to checkout...');
+    setTimeout(() => {
+      window.location.href = '/checkout';
+    }, 800);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    showToast('❌ Error saving information. Please try again.', 'error');
+  });
+}
