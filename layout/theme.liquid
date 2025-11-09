@@ -44,61 +44,63 @@
   <script src="{{ 'main.js' | asset_url }}" defer></script>
 
 <!-- App Authentication Integration -->
-  <script>
-  (function() {
-    // Check if user is logged in to the app
-    fetch('https://app.marketsniper.pro/api/auth/status', {
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(res => res.json())
-    .then(data => {
-      console.log('Auth data:', data); // Debug
+<script>
+(async function() {
+  try {
+    const accountNameEl = document.querySelector('.account-name');
+    const mobileAccountEl = document.querySelector('.mobile-account');
+    
+    if (!accountNameEl && !mobileAccountEl) return;
+    
+    // Load Supabase SDK
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+    
+    script.onload = async function() {
+      const { createClient } = window.supabase;
+      const supabaseClient = createClient(
+        'https://vxyfonowbokftijkufzp.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ4eWZvbm93Ym9rZnRpamt1ZnpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA5ODc4MDUsImV4cCI6MjA0NjU2MzgwNX0.pU5VCCipYwKN7J-Hm6UNHFNdOPyL6EkDrLTbQKRJfTc'
+      );
       
-      if (data.authenticated) {
-        // Use firstName
-        let displayName = data.firstName || 'Account';
+      const { data: { user } } = await supabaseClient.auth.getUser();
+      
+      if (user) {
+        const { data: profile } = await supabaseClient
+          .from('profiles')
+          .select('shopify_customer_id')
+          .eq('id', user.id)
+          .single();
         
-        // Replace desktop login button
-        const loginBtn = document.querySelector('.login-btn');
-        if (loginBtn) {
-          const userLink = document.createElement('a');
-          userLink.href = 'https://app.marketsniper.pro/portal';
-          userLink.className = 'login-btn'; // Keep same class for same styling
-          userLink.innerHTML = `
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-            <span>${displayName}</span>
-          `;
-          loginBtn.replaceWith(userLink);
-        }
-        
-        // Replace mobile login button
-        const mobileLogin = document.querySelector('.mobile-login');
-        if (mobileLogin) {
-          const mobileUserLink = document.createElement('a');
-          mobileUserLink.href = 'https://app.marketsniper.pro/portal';
-          mobileUserLink.className = 'mobile-login'; // Keep same class
-          mobileUserLink.innerHTML = `
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-            <span>${displayName}</span>
-          `;
-          mobileLogin.replaceWith(mobileUserLink);
+        if (profile?.shopify_customer_id) {
+          const { data: shopifyCustomer } = await supabaseClient
+            .from('shopify_customers')
+            .select('full_name')
+            .eq('shopify_customer_id', profile.shopify_customer_id)
+            .single();
+          
+          if (shopifyCustomer?.full_name) {
+            const firstName = shopifyCustomer.full_name.split(' ')[0];
+            
+            const desktopName = document.querySelector('.account-name');
+            if (desktopName) desktopName.textContent = firstName;
+            
+            const mobileAccount = document.querySelector('.mobile-account');
+            if (mobileAccount) {
+              const textNode = Array.from(mobileAccount.childNodes).find(node => node.nodeType === 3);
+              if (textNode) textNode.textContent = firstName;
+            }
+          }
         }
       }
-    })
-    .catch(err => {
-      console.log('Auth check:', err);
-    });
-  })();
-  </script>
+    };
+    
+    document.head.appendChild(script);
+  } catch (error) {
+    console.error('Error fetching user name:', error);
+  }
+})();
+</script>
   
   <style>
   /* Hover effect for account icon */
