@@ -43,71 +43,73 @@
   <script src="{{ 'animations.js' | asset_url }}" defer></script>
   <script src="{{ 'main.js' | asset_url }}" defer></script>
 
-  <!-- Supabase Authentication Integration -->
-  <script>
-  (async function() {
-    try {
-      // Load Supabase SDK
-      const script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+<!-- Supabase Authentication Integration -->
+<script>
+(async function() {
+  try {
+    // Load Supabase SDK
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+    
+    script.onload = async function() {
+      const { createClient } = window.supabase;
+      const supabaseClient = createClient(
+        'https://vxyfonowbokftijkufzp.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ4eWZvbm93Ym9rZnRpamt1ZnpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA5ODc4MDUsImV4cCI6MjA0NjU2MzgwNX0.pU5VCCipYwKN7J-Hm6UNHFNdOPyL6EkDrLTbQKRJfTc'
+      );
       
-      script.onload = async function() {
-        const { createClient } = window.supabase;
-        const supabaseClient = createClient(
-          'https://vxyfonowbokftijkufzp.supabase.co',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ4eWZvbm93Ym9rZnRpamt1ZnpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA5ODc4MDUsImV4cCI6MjA0NjU2MzgwNX0.pU5VCCipYwKN7J-Hm6UNHFNdOPyL6EkDrLTbQKRJfTc'
-        );
+      // Use getSession() to check cookies across domains
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      
+      if (session?.user) {
+        const user = session.user;
         
-        // Get current user
-        const { data: { user } } = await supabaseClient.auth.getUser();
+        // Fetch profile
+        const { data: profile } = await supabaseClient
+          .from('profiles')
+          .select('shopify_customer_id')
+          .eq('id', user.id)
+          .single();
         
-        if (user) {
-          // Fetch profile
-          const { data: profile } = await supabaseClient
-            .from('profiles')
-            .select('shopify_customer_id')
-            .eq('id', user.id)
+        if (profile?.shopify_customer_id) {
+          // Fetch full name from shopify_customers
+          const { data: shopifyCustomer } = await supabaseClient
+            .from('shopify_customers')
+            .select('full_name')
+            .eq('shopify_customer_id', profile.shopify_customer_id)
             .single();
           
-          if (profile?.shopify_customer_id) {
-            // Fetch full name from shopify_customers
-            const { data: shopifyCustomer } = await supabaseClient
-              .from('shopify_customers')
-              .select('full_name')
-              .eq('shopify_customer_id', profile.shopify_customer_id)
-              .single();
+          if (shopifyCustomer?.full_name) {
+            const firstName = shopifyCustomer.full_name.split(' ')[0];
             
-            if (shopifyCustomer?.full_name) {
-              const firstName = shopifyCustomer.full_name.split(' ')[0];
-              
-              // Update desktop nav
-              const desktopAccount = document.querySelector('.account-icon');
-              const desktopLogin = document.querySelector('.login-btn');
-              const desktopName = document.querySelector('.account-name');
-              
-              if (desktopName) desktopName.textContent = firstName;
-              if (desktopAccount) desktopAccount.style.display = 'flex';
-              if (desktopLogin) desktopLogin.style.display = 'none';
-              
-              // Update mobile nav
-              const mobileAccount = document.querySelector('.mobile-account');
-              const mobileLogin = document.querySelector('.mobile-login');
-              const mobileAccountName = document.querySelector('.mobile-account-name');
-              
-              if (mobileAccountName) mobileAccountName.textContent = firstName;
-              if (mobileAccount) mobileAccount.style.display = 'flex';
-              if (mobileLogin) mobileLogin.style.display = 'none';
-            }
+            // Update desktop nav
+            const desktopAccount = document.querySelector('.account-icon');
+            const desktopLogin = document.querySelector('.login-btn');
+            const desktopName = document.querySelector('.account-name');
+            
+            if (desktopName) desktopName.textContent = firstName;
+            if (desktopAccount) desktopAccount.style.display = 'flex';
+            if (desktopLogin) desktopLogin.style.display = 'none';
+            
+            // Update mobile nav
+            const mobileAccount = document.querySelector('.mobile-account');
+            const mobileLogin = document.querySelector('.mobile-login');
+            const mobileAccountName = document.querySelector('.mobile-account-name');
+            
+            if (mobileAccountName) mobileAccountName.textContent = firstName;
+            if (mobileAccount) mobileAccount.style.display = 'flex';
+            if (mobileLogin) mobileLogin.style.display = 'none';
           }
         }
-      };
-      
-      document.head.appendChild(script);
-    } catch (error) {
-      console.error('Error fetching user authentication:', error);
-    }
-  })();
-  </script>
+      }
+    };
+    
+    document.head.appendChild(script);
+  } catch (error) {
+    console.error('Auth check error:', error);
+  }
+})();
+</script>
 
 </body>
 </html>
