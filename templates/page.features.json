@@ -174,7 +174,7 @@
             "description": "Professional trading journal and analytics platform. Track your daily performance with a visual calendar, analyze how each strategy performs, and review your complete trade history.",
             "features": "✓ Daily Performance Calendar\n✓ Strategy Performance Tracking\n✓ Portfolio Analytics Dashboard\n✓ Complete Trade History & Journal\n✓ CSV Import (NinjaTrader & more)\n✓ Multi-Account Support",
             "image": "shopify://shop_images/dashboard-screenshot.jpg",
-            "fallback_image": "market-sniper-dashboard.jpg"
+            "fallback_image": "dashboard-screenshot.jpg"
           }
         }
       },
