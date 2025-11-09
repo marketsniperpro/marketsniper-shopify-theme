@@ -13,7 +13,7 @@
       }
     },
     "bot-suite-pricing": {
-      "type": "pricing",
+      "type": "pricing-bot-suite",
       "blocks": {
         "pricing-1": {
           "type": "pricing_plan",
@@ -51,19 +51,18 @@
         "pricing-2",
         "setup-addon"
       ],
-      "name": "Bot Suite Pricing",
       "settings": {
         "section_title": "Bot Suite",
         "section_subtitle": "Full automation with battle-tested strategies, analytics dashboard, and support"
       }
     },
     "dashboard-pricing": {
-      "type": "pricing",
+      "type": "pricing-dashboard",
       "blocks": {
         "dash-pricing-1": {
           "type": "pricing_plan",
           "settings": {
-            "product": "",
+            "product": "dashboard-monthly",
             "plan_name": "Monthly",
             "period": "mo",
             "savings_text": "",
@@ -74,7 +73,7 @@
         "dash-pricing-2": {
           "type": "pricing_plan",
           "settings": {
-            "product": "",
+            "product": "dashboard-annual",
             "plan_name": "Annual",
             "period": "yr",
             "savings_text": "Save 2 months",
@@ -87,7 +86,6 @@
         "dash-pricing-1",
         "dash-pricing-2"
       ],
-      "name": "Dashboard Pricing",
       "settings": {
         "section_title": "Dashboard",
         "section_subtitle": "Track performance, analyze trades, and improve your strategy - Launching Soon"

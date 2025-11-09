@@ -1,0 +1,113 @@
+{% comment %}
+  sections/features-bot-suite.liquid
+  Bot Suite specific features section
+{% endcomment %}
+
+<section class="indicators-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>{{ section.settings.section_title }}</h2>
+      <p>{{ section.settings.section_subtitle }}</p>
+    </div>
+
+    <div class="indicators-grid">
+      {% for block in section.blocks %}
+        <div class="indicator-card" {{ block.shopify_attributes }}>
+          <span class="version-badge">{{ block.settings.version }}</span>
+          
+          {% if block.settings.image != blank %}
+            <div class="indicator-image">
+              {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: block.settings.title }}
+            </div>
+          {% elsif block.settings.fallback_image != blank %}
+            <div class="indicator-image">
+              <img src="{{ block.settings.fallback_image | asset_url }}" alt="{{ block.settings.title }}" loading="lazy">
+            </div>
+          {% endif %}
+
+          <div class="indicator-content">
+            <h3>{{ block.settings.title }}</h3>
+            <p>{{ block.settings.description }}</p>
+            
+            <div class="features-list">
+              {% assign features = block.settings.features | newline_to_br | split: '<br />' %}
+              {% for feature in features %}
+                {% assign trimmed = feature | strip %}
+                {% if trimmed != '' %}
+                  <span class="feature-item">{{ trimmed }}</span>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bot Suite Features",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Bot Suite Strategies"
+    },
+    {
+      "type": "text",
+      "id": "section_subtitle",
+      "label": "Section Subtitle",
+      "default": "Advanced tools that do the heavy lifting while trading."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "indicator",
+      "name": "Strategy/Indicator",
+      "settings": [
+        {
+          "type": "text",
+          "id": "version",
+          "label": "Version Badge",
+          "default": "Version 1.0"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Strategy Name"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "textarea",
+          "id": "features",
+          "label": "Features List",
+          "info": "One feature per line"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Strategy Image"
+        },
+        {
+          "type": "text",
+          "id": "fallback_image",
+          "label": "Fallback Image Filename",
+          "info": "Used if no image is uploaded (e.g., 'sharp-shooter-candles.jpg')"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bot Suite Features"
+    }
+  ]
+}
+{% endschema %}

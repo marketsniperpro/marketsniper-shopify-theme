@@ -1,9 +1,9 @@
 {% comment %}
-  sections/pricing.liquid
-  Pricing section with styling matching products-overview.liquid
+  sections/pricing-bot-suite.liquid
+  Bot Suite specific pricing section
 {% endcomment %}
 
-<section class="pricing-section" id="pricing">
+<section class="pricing-section" id="pricing-bot-suite">
   <div class="container">
     <div class="section-header">
       <h2>{{ section.settings.section_title }}</h2>
@@ -14,16 +14,15 @@
       {% for block in section.blocks %}
         {% if block.type == 'pricing_plan' %}
           {% assign product = all_products[block.settings.product] %}
-          
-          <div class="pricing-option {% if block.settings.is_popular %}featured{% endif %}" {{ block.shopify_attributes }}>
-            {% if block.settings.is_popular %}
-              <span class="popular-tag">Most Popular</span>
-            {% endif %}
-            
-            <div class="price-header">
-              <h4>{{ block.settings.plan_name | default: product.title }}</h4>
+          {% if product != blank %}
+            <div class="pricing-option {% if block.settings.is_popular %}featured{% endif %}" {{ block.shopify_attributes }}>
+              {% if block.settings.is_popular %}
+                <span class="popular-tag">Most Popular</span>
+              {% endif %}
               
-              {% if product != blank %}
+              <div class="price-header">
+                <h4>{{ block.settings.plan_name | default: product.title }}</h4>
+                
                 <div class="price">
                   <span class="amount">${{ product.price | divided_by: 100 }}</span>
                   <span class="period">/{{ block.settings.period }}</span>
@@ -32,18 +31,8 @@
                 {% if block.settings.savings_text != blank %}
                   <span class="savings">{{ block.settings.savings_text }}</span>
                 {% endif %}
-              {% else %}
-                <div class="price">
-                  <span class="amount coming-soon">Coming Soon</span>
-                </div>
-                
-                {% if block.settings.savings_text != blank %}
-                  <span class="savings">{{ block.settings.savings_text }}</span>
-                {% endif %}
-              {% endif %}
-            </div>
+              </div>
 
-            {% if product != blank %}
               <ul class="plan-features">
                 {% assign features_list = product.description | split: '
 ' %}
@@ -55,24 +44,17 @@
                 {% endfor %}
               </ul>
 
-              <a href="{{ product.url }}" class="btn btn-primary">
-                {{ block.settings.button_text | default: "Get Started" }}
-              </a>
-            {% else %}
-              <ul class="plan-features">
-                <li>Professional trading journal</li>
-                <li>Performance analytics dashboard</li>
-                <li>Strategy performance tracking</li>
-                <li>Complete trade history</li>
-                <li>CSV import support</li>
-                <li>Multi-account support</li>
-              </ul>
-
-              <button class="btn btn-primary" disabled>
-                {{ block.settings.button_text | default: "Coming Soon" }}
-              </button>
-            {% endif %}
-          </div>
+              {% if block.settings.button_text == 'Coming Soon' %}
+                <button class="btn btn-primary btn-disabled" disabled>
+                  {{ block.settings.button_text }}
+                </button>
+              {% else %}
+                <a href="{{ product.url }}" class="btn btn-primary">
+                  {{ block.settings.button_text | default: "Get Started" }}
+                </a>
+              {% endif %}
+            </div>
+          {% endif %}
         {% endif %}
 
         {% if block.type == 'setup_fee_addon' %}
@@ -112,11 +94,18 @@
   </div>
 </section>
 
-
+<style>
+  .btn-disabled {
+    background-color: #6c757d !important;
+    cursor: not-allowed !important;
+    opacity: 0.65;
+    pointer-events: none;
+  }
+</style>
 
 {% schema %}
 {
-  "name": "Pricing Section",
+  "name": "Bot Suite Pricing",
   "settings": [
     {
       "type": "text",
@@ -128,7 +117,7 @@
       "type": "text",
       "id": "section_subtitle",
       "label": "Section Subtitle",
-      "default": "Choose the plan that works for you"
+      "default": "Full automation with battle-tested strategies, analytics dashboard, and support"
     }
   ],
   "blocks": [
@@ -140,7 +129,7 @@
           "type": "text",
           "id": "product",
           "label": "Product Handle",
-          "info": "Enter the product handle (e.g., 'bot-suite-monthly'). Leave empty for coming soon products."
+          "info": "Enter the product handle (e.g., 'bot-suite-monthly')"
         },
         {
           "type": "text",
@@ -202,18 +191,7 @@
   ],
   "presets": [
     {
-      "name": "Pricing",
-      "blocks": [
-        {
-          "type": "pricing_plan"
-        },
-        {
-          "type": "pricing_plan"
-        },
-        {
-          "type": "setup_fee_addon"
-        }
-      ]
+      "name": "Bot Suite Pricing"
     }
   ]
 }

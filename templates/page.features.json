@@ -119,8 +119,8 @@
         "stat_label": "Years of Optimization"
       }
     },
-    "indicators": {
-      "type": "indicators",
+    "bot-suite-features": {
+      "type": "features-bot-suite",
       "blocks": {
         "indicator-1": {
           "type": "indicator",
@@ -148,17 +148,16 @@
         "indicator-1",
         "indicator-2"
       ],
-      "name": "Bot Suite Features",
       "settings": {
         "section_title": "Bot Suite Strategies",
         "section_subtitle": "Advanced tools that do the heavy lifting while trading."
       }
     },
-    "dashboard-section": {
-      "type": "indicators",
+    "dashboard-features": {
+      "type": "features-dashboard",
       "blocks": {
         "dashboard-main": {
-          "type": "indicator",
+          "type": "feature",
           "settings": {
             "version": "Trading Journal",
             "title": "Market Sniper Dashboard",
@@ -172,13 +171,12 @@
       "block_order": [
         "dashboard-main"
       ],
-      "name": "Dashboard Features",
       "settings": {
         "section_title": "Dashboard",
         "section_subtitle": "Track performance, analyze trades, and improve your strategy"
       }
     },
-    "17610911758c50136b": {
+    "what-you-get": {
       "type": "what-you-get",
       "blocks": {
         "feature-1": {
@@ -248,9 +246,9 @@
     "header",
     "hero-section",
     "trading-bot",
-    "indicators",
-    "dashboard-section",
-    "17610911758c50136b",
+    "bot-suite-features",
+    "dashboard-features",
+    "what-you-get",
     "footer"
   ]
 }
