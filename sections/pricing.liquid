@@ -14,15 +14,16 @@
       {% for block in section.blocks %}
         {% if block.type == 'pricing_plan' %}
           {% assign product = all_products[block.settings.product] %}
-          {% if product != blank %}
-            <div class="pricing-option {% if block.settings.is_popular %}featured{% endif %}" {{ block.shopify_attributes }}>
-              {% if block.settings.is_popular %}
-                <span class="popular-tag">Most Popular</span>
-              {% endif %}
+          
+          <div class="pricing-option {% if block.settings.is_popular %}featured{% endif %}" {{ block.shopify_attributes }}>
+            {% if block.settings.is_popular %}
+              <span class="popular-tag">Most Popular</span>
+            {% endif %}
+            
+            <div class="price-header">
+              <h4>{{ block.settings.plan_name | default: product.title }}</h4>
               
-              <div class="price-header">
-                <h4>{{ block.settings.plan_name | default: product.title }}</h4>
-                
+              {% if product != blank %}
                 <div class="price">
                   <span class="amount">${{ product.price | divided_by: 100 }}</span>
                   <span class="period">/{{ block.settings.period }}</span>
@@ -31,8 +32,18 @@
                 {% if block.settings.savings_text != blank %}
                   <span class="savings">{{ block.settings.savings_text }}</span>
                 {% endif %}
-              </div>
+              {% else %}
+                <div class="price">
+                  <span class="amount coming-soon">Coming Soon</span>
+                </div>
+                
+                {% if block.settings.savings_text != blank %}
+                  <span class="savings">{{ block.settings.savings_text }}</span>
+                {% endif %}
+              {% endif %}
+            </div>
 
+            {% if product != blank %}
               <ul class="plan-features">
                 {% assign features_list = product.description | split: '
 ' %}
@@ -47,8 +58,21 @@
               <a href="{{ product.url }}" class="btn btn-primary">
                 {{ block.settings.button_text | default: "Get Started" }}
               </a>
-            </div>
-          {% endif %}
+            {% else %}
+              <ul class="plan-features">
+                <li>Professional trading journal</li>
+                <li>Performance analytics dashboard</li>
+                <li>Strategy performance tracking</li>
+                <li>Complete trade history</li>
+                <li>CSV import support</li>
+                <li>Multi-account support</li>
+              </ul>
+
+              <button class="btn btn-primary" disabled>
+                {{ block.settings.button_text | default: "Coming Soon" }}
+              </button>
+            {% endif %}
+          </div>
         {% endif %}
 
         {% if block.type == 'setup_fee_addon' %}
@@ -116,7 +140,7 @@
           "type": "text",
           "id": "product",
           "label": "Product Handle",
-          "info": "Enter the product handle (e.g., 'bot-suite-monthly')"
+          "info": "Enter the product handle (e.g., 'bot-suite-monthly'). Leave empty for coming soon products."
         },
         {
           "type": "text",
