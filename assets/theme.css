@@ -635,6 +635,10 @@ section {
 .product-header h2 { font-size: 3rem; margin-bottom: 1rem; }
 .product-tagline { font-size: 1.25rem; color: var(--gray-light); }
 .product-pricing { display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch; gap: 24px; max-width: 1200px; margin: 0 auto; }
+.pricing-option.addon:hover {
+  border-color: #FFA500;
+  box-shadow: 0 20px 40px rgba(255, 107, 53, 0.25);
+}
 .pricing-option.addon .popular-tag { background: linear-gradient(135deg, #ffa500, #ff8c00); padding: 6px 18px; }
 .pricing-option.addon .price-header h4 { color: #ffa500; }
 .pricing-option.addon .price .amount { color: #ffa500; background: none; -webkit-text-fill-color: #ffa500; }
