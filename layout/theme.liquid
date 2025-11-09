@@ -43,80 +43,71 @@
   <script src="{{ 'animations.js' | asset_url }}" defer></script>
   <script src="{{ 'main.js' | asset_url }}" defer></script>
 
-<!-- App Authentication Integration -->
-<script>
-(async function() {
-  try {
-    const accountNameEl = document.querySelector('.account-name');
-    const mobileAccountEl = document.querySelector('.mobile-account');
-    
-    if (!accountNameEl && !mobileAccountEl) return;
-    
-    // Load Supabase SDK
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
-    
-    script.onload = async function() {
-      const { createClient } = window.supabase;
-      const supabaseClient = createClient(
-        'https://vxyfonowbokftijkufzp.supabase.co',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ4eWZvbm93Ym9rZnRpamt1ZnpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA5ODc4MDUsImV4cCI6MjA0NjU2MzgwNX0.pU5VCCipYwKN7J-Hm6UNHFNdOPyL6EkDrLTbQKRJfTc'
-      );
+  <!-- Supabase Authentication Integration -->
+  <script>
+  (async function() {
+    try {
+      // Load Supabase SDK
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
       
-      const { data: { user } } = await supabaseClient.auth.getUser();
-      
-      if (user) {
-        const { data: profile } = await supabaseClient
-          .from('profiles')
-          .select('shopify_customer_id')
-          .eq('id', user.id)
-          .single();
+      script.onload = async function() {
+        const { createClient } = window.supabase;
+        const supabaseClient = createClient(
+          'https://vxyfonowbokftijkufzp.supabase.co',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ4eWZvbm93Ym9rZnRpamt1ZnpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA5ODc4MDUsImV4cCI6MjA0NjU2MzgwNX0.pU5VCCipYwKN7J-Hm6UNHFNdOPyL6EkDrLTbQKRJfTc'
+        );
         
-        if (profile?.shopify_customer_id) {
-          const { data: shopifyCustomer } = await supabaseClient
-            .from('shopify_customers')
-            .select('full_name')
-            .eq('shopify_customer_id', profile.shopify_customer_id)
+        // Get current user
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        
+        if (user) {
+          // Fetch profile
+          const { data: profile } = await supabaseClient
+            .from('profiles')
+            .select('shopify_customer_id')
+            .eq('id', user.id)
             .single();
           
-          if (shopifyCustomer?.full_name) {
-            const firstName = shopifyCustomer.full_name.split(' ')[0];
+          if (profile?.shopify_customer_id) {
+            // Fetch full name from shopify_customers
+            const { data: shopifyCustomer } = await supabaseClient
+              .from('shopify_customers')
+              .select('full_name')
+              .eq('shopify_customer_id', profile.shopify_customer_id)
+              .single();
             
-            const desktopName = document.querySelector('.account-name');
-            if (desktopName) desktopName.textContent = firstName;
-            
-            const mobileAccount = document.querySelector('.mobile-account');
-            if (mobileAccount) {
-              const textNode = Array.from(mobileAccount.childNodes).find(node => node.nodeType === 3);
-              if (textNode) textNode.textContent = firstName;
+            if (shopifyCustomer?.full_name) {
+              const firstName = shopifyCustomer.full_name.split(' ')[0];
+              
+              // Update desktop nav
+              const desktopAccount = document.querySelector('.account-icon');
+              const desktopLogin = document.querySelector('.login-btn');
+              const desktopName = document.querySelector('.account-name');
+              
+              if (desktopName) desktopName.textContent = firstName;
+              if (desktopAccount) desktopAccount.style.display = 'flex';
+              if (desktopLogin) desktopLogin.style.display = 'none';
+              
+              // Update mobile nav
+              const mobileAccount = document.querySelector('.mobile-account');
+              const mobileLogin = document.querySelector('.mobile-login');
+              const mobileAccountName = document.querySelector('.mobile-account-name');
+              
+              if (mobileAccountName) mobileAccountName.textContent = firstName;
+              if (mobileAccount) mobileAccount.style.display = 'flex';
+              if (mobileLogin) mobileLogin.style.display = 'none';
             }
           }
         }
-      }
-    };
-    
-    document.head.appendChild(script);
-  } catch (error) {
-    console.error('Error fetching user name:', error);
-  }
-})();
-</script>
-  
-  <style>
-  /* Hover effect for account icon */
-  .account-icon:hover svg {
-    stroke: #00ff41;
-    transition: stroke 0.2s ease;
-  }
-  </style>
-  
-  <style>
-  /* Hover effect for user avatar */
-  .account-icon:hover div {
-    transform: scale(1.05);
-    transition: transform 0.2s ease;
-  }
-  </style>
+      };
+      
+      document.head.appendChild(script);
+    } catch (error) {
+      console.error('Error fetching user authentication:', error);
+    }
+  })();
+  </script>
 
 </body>
 </html>

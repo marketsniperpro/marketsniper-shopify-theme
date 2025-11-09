@@ -1,6 +1,6 @@
 {% comment %}
   sections/header.liquid
-  Updated site header with Shopify customer account integration
+  Updated site header with Supabase authentication integration
 {% endcomment %}
 
 <nav class="navbar">
@@ -31,25 +31,22 @@
         </a>
       </li>
       
-      <!-- Login/Account Icon - Shopify Customer Account -->
-      <li>
-        {% if customer %}
-          <a href="/account" class="account-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-            <span class="account-name">{{ customer.first_name }}</span>
-          </a>
-        {% else %}
-          <a href="https://app.marketsniper.pro/login" class="login-btn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-            <span>Login</span>
-          </a>
-        {% endif %}
+      <!-- Login/Account Icon - Both elements, toggled by JS -->
+      <li class="auth-nav-item">
+        <a href="https://app.marketsniper.pro/portal" class="account-icon" style="display: none;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span class="account-name">Account</span>
+        </a>
+        <a href="https://app.marketsniper.pro/login" class="login-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span>Login</span>
+        </a>
       </li>
     </ul>
     
@@ -88,33 +85,22 @@
       </a>
     </li>
     
-    <!-- Mobile Auth Link - Shopify Customer Account -->
-    <li>
-      {% if customer %}
-        <a href="/account" class="mobile-account">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-          <span>{{ customer.first_name }}'s Account</span>
-        </a>
-        <a href="/account/logout" class="mobile-logout">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-            <polyline points="16 17 21 12 16 7"/>
-            <line x1="21" y1="12" x2="9" y2="12"/>
-          </svg>
-          <span>Logout</span>
-        </a>
-      {% else %}
-        <a href="https://app.marketsniper.pro/login" class="mobile-login">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-          <span>Login</span>
-        </a>
-      {% endif %}
+    <!-- Mobile Auth Link - Both elements, toggled by JS -->
+    <li class="mobile-auth-item">
+      <a href="https://app.marketsniper.pro/portal" class="mobile-account" style="display: none;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        <span class="mobile-account-name">My Account</span>
+      </a>
+      <a href="https://app.marketsniper.pro/login" class="mobile-login">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        <span>Login</span>
+      </a>
     </li>
   </ul>
 </div>
