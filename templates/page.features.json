@@ -157,7 +157,7 @@
       "type": "features-dashboard",
       "blocks": {
         "dashboard-main": {
-          "type": "feature",
+          "type": "indicator",
           "settings": {
             "version": "Trading Journal",
             "title": "Market Sniper Dashboard",
