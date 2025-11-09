@@ -1,1 +1,265 @@
-{"sections":{"header":{"type":"header","settings":{"logo_text":"Market Sniper"}},"hero-section":{"type":"features-hero","blocks":{"feature-1":{"type":"feature_item","settings":{"icon_type":"chart","title":"Professional Indicators\/Strategies","description":"Sharp Shooter Candles & RSI"}},"feature-2":{"type":"feature_item","settings":{"icon_type":"settings","title":"Position Management","description":"Automated entry & exit control"}},"feature-3":{"type":"feature_item","settings":{"icon_type":"filter","title":"Advanced Filters","description":"Fine-tune your trading signals"}},"feature-4":{"type":"feature_item","settings":{"icon_type":"globe","title":"Asset Coverage","description":"Crypto, Futures, Stocks, & Options"}}},"block_order":["feature-1","feature-2","feature-3","feature-4"],"settings":{"hero_title_line1":"Trading Toolkit","hero_title_line2":"Strategies & Support","hero_subtitle":"Professional Sharp Shooter indicators for TradingView, battle-tested trading strategies, position management tools, and an active Discord community with dedicated support.","primary_button_text":"Get Started Today","primary_button_link":"\/pages\/home"}},"trading-bot":{"type":"trading-bot","blocks":{"feature-1":{"type":"feature","settings":{"title":"Automated Trading Alerts","description":"Alerts are automatically triggered when strategy conditions are met and can send the signal directly to your broker or exchange in real-time."}},"feature-2":{"type":"feature","settings":{"title":"Sharp Shooter Candles 4.21","description":"A trend-following algorithm with buy\/sell signals, multiple filters, and position management tools to help optimize your trading strategy."}},"feature-3":{"type":"feature","settings":{"title":"Sharp Shooter RSI 3.2","description":"An automated RSI-based trading system that generates buy\/sell signals, multiple filters, and position management tools to help optimize your strategy."}},"feature-4":{"type":"feature","settings":{"title":"Proven Trading Strategies","description":"Battle-tested strategies on multiple asset classes and multiple time frames that are delivered to your TradingView account."}},"feature-5":{"type":"feature","settings":{"title":"Private Bot Discussion Channel","description":"Exclusive Discord channel for bot configuration, optimization, and dedicated support."}}},"block_order":["feature-1","feature-2","feature-3","feature-4","feature-5"],"settings":{"badge_text":"Now Available","title":"What We Build","subtitle":"Tools, strategies, and support to elevate your trading","show_stat":false,"stat_number":"2+","stat_label":"Years of Optimization"}},"indicators":{"type":"indicators","blocks":{"indicator-1":{"type":"indicator","settings":{"version":"Version 4.21","title":"Sharp Shooter Candles","description":"Fully customizable strategy with intuitive color-coding. Green for bullish, red for bearish, orange for overbought, and blue for oversold conditions.","features":"✓ Buy\/Sell Signals\n✓ Noise Filter \n✓ Reversal Detection\n✓ Time Filter\n✓ Position Management Tools\n✓ Trending Dots Filter","image":"shopify:\/\/shop_images\/Sharp_SHooter_candles_4.21_screen_shot.png","fallback_image":"sharp-shooter-candles.jpg"}},"indicator-2":{"type":"indicator","settings":{"version":"Version 3.2","title":"Sharp Shooter RSI","description":"Gain an edge with advanced RSI divergence detection. Identify trend changes before price action confirms them.","features":"✓ Buy\/Sell Signals\n✓ Noise Filter\n✓ RSI Divergences\n✓ Time Filter\n✓ Position Management Tools\n✓ Customizable Length & Style","fallback_image":"sharp-shooter-rsi.jpg"}}},"block_order":["indicator-1","indicator-2"],"settings":{"section_title":"Bot Suite Strategies","section_subtitle":"Advanced tools that do the heavy lifting while trading."}},"17610911758c50136b":{"type":"what-you-get","blocks":{"feature-1":{"type":"feature","settings":{"title":"TradingView Integration","description":"Indicators and strategies delivered directly to your TradingView account for seamless trading."}},"feature-2":{"type":"feature","settings":{"title":"Real-Time Trading Alerts","description":"Get instant notifications when signals trigger entries\/exits to your computer, mobile app, email, plain text, etc..."}},"feature-3":{"type":"feature","settings":{"title":"Strategy Configuration Support","description":"Expert guidance on setting up indicators, customizing strategies, and optimizing your trading approach."}},"feature-4":{"type":"feature","settings":{"title":"Strategy Library","description":"Access to proven trading strategies tested across multiple market conditions."}},"feature-5":{"type":"feature","settings":{"title":"Exclusive Discord Community","description":"Connect with other traders and get real-time support from our team."}},"feature-6":{"type":"feature","settings":{"title":"Regular Updates","description":"Continuous improvements to indicators, strategies, and new features."}}},"block_order":["feature-1","feature-2","feature-3","feature-4","feature-5","feature-6"],"settings":{"section_title":"What You Get","section_subtitle":"Complete trading solution with everything you need","button_text":"View All Plans","button_link":"\/pages\/home"}},"footer":{"type":"footer","settings":{}}},"order":["header","hero-section","trading-bot","indicators","17610911758c50136b","footer"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo_text": "Market Sniper"
+      }
+    },
+    "hero-section": {
+      "type": "features-hero",
+      "blocks": {
+        "feature-1": {
+          "type": "feature_item",
+          "settings": {
+            "icon_type": "chart",
+            "title": "Professional Indicators/Strategies",
+            "description": "Sharp Shooter Candles & RSI"
+          }
+        },
+        "feature-2": {
+          "type": "feature_item",
+          "settings": {
+            "icon_type": "settings",
+            "title": "Position Management",
+            "description": "Automated entry & exit control"
+          }
+        },
+        "feature-3": {
+          "type": "feature_item",
+          "settings": {
+            "icon_type": "filter",
+            "title": "Advanced Filters",
+            "description": "Fine-tune your trading signals"
+          }
+        },
+        "feature-4": {
+          "type": "feature_item",
+          "settings": {
+            "icon_type": "globe",
+            "title": "Asset Coverage",
+            "description": "Crypto, Futures, Stocks, & Options"
+          }
+        }
+      },
+      "block_order": [
+        "feature-1",
+        "feature-2",
+        "feature-3",
+        "feature-4"
+      ],
+      "settings": {
+        "hero_title_line1": "Trading Toolkit",
+        "hero_title_line2": "Strategies & Support",
+        "hero_subtitle": "Professional Sharp Shooter indicators for TradingView, battle-tested trading strategies, position management tools, and an active Discord community with dedicated support.",
+        "primary_button_text": "Get Started Today",
+        "primary_button_link": "/pages/products"
+      }
+    },
+    "trading-bot": {
+      "type": "trading-bot",
+      "blocks": {
+        "feature-1": {
+          "type": "feature",
+          "settings": {
+            "title": "Automated Trading Alerts",
+            "description": "Alerts are automatically triggered when strategy conditions are met and can send the signal directly to your broker or exchange in real-time."
+          }
+        },
+        "feature-2": {
+          "type": "feature",
+          "settings": {
+            "title": "Sharp Shooter Candles 4.21",
+            "description": "A trend-following algorithm with buy/sell signals, multiple filters, and position management tools to help optimize your trading strategy."
+          }
+        },
+        "feature-3": {
+          "type": "feature",
+          "settings": {
+            "title": "Sharp Shooter RSI 3.2",
+            "description": "An automated RSI-based trading system that generates buy/sell signals, multiple filters, and position management tools to help optimize your strategy."
+          }
+        },
+        "feature-4": {
+          "type": "feature",
+          "settings": {
+            "title": "Proven Trading Strategies",
+            "description": "Battle-tested strategies on multiple asset classes and multiple time frames that are delivered to your TradingView account."
+          }
+        },
+        "feature-5": {
+          "type": "feature",
+          "settings": {
+            "title": "Private Bot Discussion Channel",
+            "description": "Exclusive Discord channel for bot configuration, optimization, and dedicated support."
+          }
+        },
+        "feature-6": {
+          "type": "feature",
+          "settings": {
+            "title": "Performance Analytics Dashboard",
+            "description": "Track your trading performance with comprehensive analytics, P&L tracking, strategy analysis, and trade history."
+          }
+        }
+      },
+      "block_order": [
+        "feature-1",
+        "feature-2",
+        "feature-3",
+        "feature-4",
+        "feature-5",
+        "feature-6"
+      ],
+      "settings": {
+        "badge_text": "Bot Suite",
+        "title": "Full Automation Package",
+        "subtitle": "Automated trading, performance analytics, and expert support",
+        "show_stat": false,
+        "stat_number": "2+",
+        "stat_label": "Years of Optimization"
+      }
+    },
+    "indicators": {
+      "type": "indicators",
+      "blocks": {
+        "indicator-1": {
+          "type": "indicator",
+          "settings": {
+            "version": "Version 4.21",
+            "title": "Sharp Shooter Candles",
+            "description": "Fully customizable strategy with intuitive color-coding. Green for bullish, red for bearish, orange for overbought, and blue for oversold conditions. Includes access to legacy v3.0.",
+            "features": "✓ Buy/Sell Signals\n✓ Noise Filter \n✓ Reversal Detection\n✓ Time Filter\n✓ Position Management Tools\n✓ Trending Dots Filter\n✓ Legacy v3.0 Access",
+            "image": "shopify://shop_images/Sharp_SHooter_candles_4.21_screen_shot.png",
+            "fallback_image": "sharp-shooter-candles.jpg"
+          }
+        },
+        "indicator-2": {
+          "type": "indicator",
+          "settings": {
+            "version": "Version 3.2",
+            "title": "Sharp Shooter RSI",
+            "description": "Gain an edge with advanced RSI divergence detection. Identify trend changes before price action confirms them. Includes access to legacy v2.0.",
+            "features": "✓ Buy/Sell Signals\n✓ Noise Filter\n✓ RSI Divergences\n✓ Time Filter\n✓ Position Management Tools\n✓ Customizable Length & Style\n✓ Legacy v2.0 Access",
+            "fallback_image": "sharp-shooter-rsi.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "indicator-1",
+        "indicator-2"
+      ],
+      "name": "Bot Suite Features",
+      "settings": {
+        "section_title": "Bot Suite Strategies",
+        "section_subtitle": "Advanced tools that do the heavy lifting while trading."
+      }
+    },
+    "dashboard-section": {
+      "type": "indicators",
+      "blocks": {
+        "dashboard-main": {
+          "type": "indicator",
+          "settings": {
+            "version": "Trading Journal",
+            "title": "Market Sniper Dashboard",
+            "description": "Professional trading journal and analytics platform. Track your daily performance with a visual calendar, analyze how each strategy performs, and review your complete trade history.",
+            "features": "✓ Daily Performance Calendar\n✓ Strategy Performance Tracking\n✓ Portfolio Analytics Dashboard\n✓ Complete Trade History & Journal\n✓ CSV Import (NinjaTrader & more)\n✓ Multi-Account Support",
+            "image": "shopify://shop_images/dashboard-screenshot.jpg",
+            "fallback_image": "market-sniper-dashboard.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "dashboard-main"
+      ],
+      "name": "Dashboard Features",
+      "settings": {
+        "section_title": "Dashboard",
+        "section_subtitle": "Track performance, analyze trades, and improve your strategy"
+      }
+    },
+    "17610911758c50136b": {
+      "type": "what-you-get",
+      "blocks": {
+        "feature-1": {
+          "type": "feature",
+          "settings": {
+            "title": "TradingView Integration",
+            "description": "Indicators and strategies delivered directly to your TradingView account for seamless trading."
+          }
+        },
+        "feature-2": {
+          "type": "feature",
+          "settings": {
+            "title": "Real-Time Trading Alerts",
+            "description": "Get instant notifications when signals trigger entries/exits to your computer, mobile app, email, plain text, etc..."
+          }
+        },
+        "feature-3": {
+          "type": "feature",
+          "settings": {
+            "title": "Strategy Configuration Support",
+            "description": "Expert guidance on setting up indicators, customizing strategies, and optimizing your trading approach."
+          }
+        },
+        "feature-4": {
+          "type": "feature",
+          "settings": {
+            "title": "Strategy Library",
+            "description": "Access to proven trading strategies tested across multiple market conditions."
+          }
+        },
+        "feature-5": {
+          "type": "feature",
+          "settings": {
+            "title": "Exclusive Discord Community",
+            "description": "Connect with other traders and get real-time support from our team."
+          }
+        },
+        "feature-6": {
+          "type": "feature",
+          "settings": {
+            "title": "Regular Updates",
+            "description": "Continuous improvements to indicators, strategies, and new features."
+          }
+        }
+      },
+      "block_order": [
+        "feature-1",
+        "feature-2",
+        "feature-3",
+        "feature-4",
+        "feature-5",
+        "feature-6"
+      ],
+      "settings": {
+        "section_title": "What You Get",
+        "section_subtitle": "Complete trading solution with everything you need",
+        "button_text": "View All Plans",
+        "button_link": "/pages/products"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "header",
+    "hero-section",
+    "trading-bot",
+    "indicators",
+    "dashboard-section",
+    "17610911758c50136b",
+    "footer"
+  ]
+}
